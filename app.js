@@ -207,8 +207,6 @@ var editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = n
 var editingDeudaId = null;
 var fotoProductoBase64 = null;
 var fotoProductoEditando = null;
-var fotoProductoBase64 = null;
-var fotoProductoEditando = null;
 
 // FIX #14: Validar carrito al restaurar (productos pueden haber cambiado)
 function restaurarCarrito() {
@@ -304,7 +302,7 @@ function updateDashboard() {
             return venc <= hoyFecha;
         });
         if (vencidasHoy.length > 0) {
-            alertas.push('<div class="dash-alerta rojo" onclick="navigateTo('deudas')">🔴 ' + vencidasHoy.length + ' cuota(s) vencida(s) hoy</div>');
+            alertas.push('<div class="dash-alerta rojo" onclick="navigateTo(&#39;deudas&#39;)">🔴 ' + vencidasHoy.length + ' cuota(s) vencida(s) hoy</div>');
         }
         var proximas = allDeudas.filter(function(d) {
             if (!d.proxVencimiento) return false;
@@ -313,7 +311,7 @@ function updateDashboard() {
             return diff > 0 && diff <= 3;
         });
         if (proximas.length > 0) {
-            alertas.push('<div class="dash-alerta amarillo" onclick="navigateTo('deudas')">🟡 ' + proximas.length + ' cuota(s) vencen en 3 dias</div>');
+            alertas.push('<div class="dash-alerta amarillo" onclick="navigateTo(&#39;deudas&#39;)">🟡 ' + proximas.length + ' cuota(s) vencen en 3 dias</div>');
         }
         var allClientes = getClientes();
         var clientesAlerta = [];
@@ -328,7 +326,7 @@ function updateDashboard() {
             }
         }
         if (clientesAlerta.length > 0) {
-            alertas.push('<div class="dash-alerta naranja" onclick="navigateTo('clientes')">🟠 ' + clientesAlerta.length + ' cliente(s) con >80% limite usado</div>');
+            alertas.push('<div class="dash-alerta naranja" onclick="navigateTo(&#39;clientes&#39;)">🟠 ' + clientesAlerta.length + ' cliente(s) con >80% limite usado</div>');
         }
         alertasContainer.innerHTML = alertas.length > 0 ? alertas.join('') : '<div class="dash-alerta verde">✅ Sin alertas de deudas</div>';
         if (alertasCard) alertasCard.style.display = 'block';
@@ -653,31 +651,7 @@ function cargarFotoProducto(input) {
     input.value = '';
 }
 
-function cargarFotoProducto(input) {
-    var file = input.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { showToast('Imagen muy grande. Max 5MB'); return; }
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        showToast('Procesando imagen...');
-        redimensionarImagen(e.target.result, 800, 800, function(resized) {
-            if (!resized) { showToast('Error al procesar imagen'); return; }
-            fotoProductoBase64 = resized;
-            var preview = document.getElementById('prod-foto-img');
-            var previewDiv = document.getElementById('prod-foto-preview');
-            if (preview) preview.src = fotoProductoBase64;
-            if (previewDiv) previewDiv.style.display = 'block';
-            showToast('Foto cargada (' + Math.round(resized.length / 1024) + 'KB)');
-        });
-    };
-    reader.onerror = function() { showToast('Error al leer imagen'); };
-    reader.readAsDataURL(file);
-    input.value = '';
-}
 
-// ============================================================
-// PRODUCTOS
-// ============================================================
 function renderProductos() {
     var productos = getProductos();
     var container = document.getElementById('p-lista');
@@ -1612,7 +1586,7 @@ function importarBackup(input) {
     var file = input.files[0];
     if (!file) return;
     if (!file.name.endsWith('.xlsx')) { showToast('❌ Solo archivos .xlsx'); input.value = ''; return; }
-    if (!confirm('⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?')) { input.value = ''; return; }
+    if (!confirm(`⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?`)) { input.value = ''; return; }
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
