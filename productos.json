@@ -1,0 +1,1942 @@
+[
+  {
+    "id": "da0001",
+    "nombre": "ANTIONIO PUIG AGUA BRAVA 200ml.",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0002",
+    "nombre": "ANTIONIO PUIG AGUA BRAVA AZUL 100ml.",
+    "marca": "",
+    "precio": 15000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0003",
+    "nombre": "ANTIONIO PUIG SET AGUA BRAVA 50ML + DEO 100ml.",
+    "marca": "",
+    "precio": 15000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0004",
+    "nombre": "ANTIONIO PUIG SET QUORUM 50ML + DEO 150ml.",
+    "marca": "",
+    "precio": 15000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0005",
+    "nombre": "ARMAF BLUE HOMME EDP 100ml+SG100ml+BS50ml+SHAMPOO250ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0009",
+    "nombre": "ARMAF CLUB DE NUIT SILLAGE EDP 105 ml",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0010",
+    "nombre": "ARMAF CRAZE FOR MEN 100 ml EDP",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0011",
+    "nombre": "ARMAF HUNTER FOR MEN EDT 100 ml",
+    "marca": "",
+    "precio": 38000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0012",
+    "nombre": "ARMAF HUNTER INTENSE FOR MEN EDP 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0013",
+    "nombre": "ARMAF HUNTER INTENSE FOR MEN EDP 100 ml + BS 50ML + MIST 250ML X2",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0014",
+    "nombre": "ARMAF ODYSSEY LIMONI EDP 100ml.",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0016",
+    "nombre": "ARMAF ODYSSEY MANDARÍN SKY DESODORANTE 200ml.",
+    "marca": "",
+    "precio": 8000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0017",
+    "nombre": "ARMAF ODYSSEY MANDARÍN SKY EDP 60ml.",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0018",
+    "nombre": "ARMAF ODYSSEY SPECTRA RAINBOW DESODORANTE 200ml.",
+    "marca": "",
+    "precio": 5000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0021",
+    "nombre": "ARMAF SHADES WOOD MEN EDP 100 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0022",
+    "nombre": "ARMAF TRES BON MEN EDT100ml+SG100ml+BS50ml+SH250ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0023",
+    "nombre": "ARMAF VOYAGE BLEU EDP 100 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0024",
+    "nombre": "Antonio Banderas Mediterráneo 200ml EDT.",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0026",
+    "nombre": "BENTLEY FOR MEN AZURE EDT 100 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0027",
+    "nombre": "BENTLEY MOMENTUM UNLIMITED EDT 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0028",
+    "nombre": "CAROLINA HERRERA 212 NYC EDT 100 ML",
+    "marca": "",
+    "precio": 80000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0029",
+    "nombre": "CAROLINA HERRERA 212 NYC MEN EDT 100ml.",
+    "marca": "",
+    "precio": 80000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0030",
+    "nombre": "CAROLINA HERRERA 212 SEXY MEN EDT 100 ml",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0031",
+    "nombre": "CAROLINA HERRERA 212 VIP BLACK RED 100ML EDP",
+    "marca": "",
+    "precio": 80000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0032",
+    "nombre": "CAROLINA HERRERA BAD BOY COBALT EDP 100 ml",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0033",
+    "nombre": "CAROLINA HERRERA MEN PASIÓN 100ml EDP",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0034",
+    "nombre": "CAROLINA HERRERA SET BAD BOY EDT 100ml + 10ml.",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0035",
+    "nombre": "CLUB DE NUIT INTENSE",
+    "marca": "",
+    "precio": 35000,
+    "stock": 2,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0037",
+    "nombre": "DOLCE & GABANNA LIGHT BLUE SUN 125 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0038",
+    "nombre": "DOLCE & GABBANA THE ONE GREY 100 ml",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0039",
+    "nombre": "FERRARI BLACK 125 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0040",
+    "nombre": "FRANCK OLIVIER SUN JAVA EDP 75 ml + 200 DEO",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0041",
+    "nombre": "GANDINI TABACCO 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0043",
+    "nombre": "HUGO BOSS ENERGISE EDT 75ml.",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0045",
+    "nombre": "Hugo Boss Dark Blue 75ml EDT.",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0046",
+    "nombre": "Hugo Boss Iced 75ml EDT.",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0047",
+    "nombre": "Hugo Boss Reversed 125ml EDT.",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0048",
+    "nombre": "KENZO POUR HOMME EDP 100 ml",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0049",
+    "nombre": "LACOSTE ROUGE 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0051",
+    "nombre": "MAUBOUSSIN POUR LUI TIME OUT 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0053",
+    "nombre": "MONT BLANC LEGEND RED EDP 100 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0054",
+    "nombre": "MUGLER ALIEN MAN 100 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0055",
+    "nombre": "MUGLER AMEN RUBBER 100 ml",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0056",
+    "nombre": "PACO RABANNE BLACK XS EDT 100 ML",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0058",
+    "nombre": "PACO RABANNE INVICTUS EDT 100 ML",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0059",
+    "nombre": "PACO RABANNE SET  1 MILLION EDT 100ml + 20ml.",
+    "marca": "",
+    "precio": 85000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0060",
+    "nombre": "PACO RABANNE SET INVICTUS EDT 100ml + 20ml.",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0061",
+    "nombre": "PACO RABANNE SET PHANTOM EDT 100ml + 20ml.",
+    "marca": "",
+    "precio": 80000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0063",
+    "nombre": "PERRY ELLIS RED MEN EDT 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0064",
+    "nombre": "Paco Rabanne Phantom set 100ml + 20ml EDT.",
+    "marca": "",
+    "precio": 70000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0065",
+    "nombre": "RALPH LAUREN BIG PONY 1 VARON 50 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0066",
+    "nombre": "SET ANIMALE INTENSE VARON 100 ml + ASB 90 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0067",
+    "nombre": "SET POLO X 4 (15 ml cada uno)",
+    "marca": "",
+    "precio": 35900,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0068",
+    "nombre": "TOMMY HILFIGER IMPACT EDT 100ML",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0069",
+    "nombre": "TONINO LAMBORGHINI ACQUA EDT 125ml",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0070",
+    "nombre": "TONINO LAMBORGHINI INVINCIBILE SET",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0071",
+    "nombre": "TONINO LAMBORGHINI MITICO EDT 125ml",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "caballero",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0072",
+    "nombre": "AL HARAMAIN JUNOON EDP 75 ml",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0073",
+    "nombre": "AL HARAMAIN JUNOON NOIR EDP 75 ml",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0074",
+    "nombre": "ANGEL MUGLER 100 ml EDT",
+    "marca": "",
+    "precio": 78000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0075",
+    "nombre": "ARIANA GRANDE ARI 100ml EDP",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0077",
+    "nombre": "ARIANA GRANDE REM 100ml EDP",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0078",
+    "nombre": "ARIANA GRANDE SWEET LIKE CANDY EDP 100ml.",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0079",
+    "nombre": "ARIANA GRANDE THANK U NEXT EDP 100ml.",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0080",
+    "nombre": "ARMAF DE LA MARQUE GOLD WOMAN EDP 100ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0081",
+    "nombre": "ARMAF ISLAND BLISS EDP 100 ML",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0082",
+    "nombre": "ARMAF KATARINA LIGHT BLUE",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0083",
+    "nombre": "ARMAF TAG HER EDP 100 ml + BL 100 ml + BS 50 ml + MIST 250 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0085",
+    "nombre": "ARMAF TRES JOUR WOMEN EDP 100ml+BL100ml+BS50ml+Bm250ml;",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0086",
+    "nombre": "ARMAF YUM YUM EDP 100 ML.",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0087",
+    "nombre": "AURA DE THIERRY MUGLER 90 ml EDP",
+    "marca": "",
+    "precio": 55000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0088",
+    "nombre": "AURA MUGLER EDP 50 ml + 2 X 50 ml BLYU",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0089",
+    "nombre": "Al wataniah apple musk body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0090",
+    "nombre": "Al wataniah cherry musk body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0091",
+    "nombre": "Al wataniah coconut musk body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0092",
+    "nombre": "Al wataniah rose musk body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0093",
+    "nombre": "BEBE GLAM 100 ml",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0094",
+    "nombre": "BENETTON COLORS PINK 80 ml + BL SET",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0095",
+    "nombre": "BENETTON COLORS PURPLE 80 ml + BL SET",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0096",
+    "nombre": "BRITNEY SPEARS FANTASY BLISSFUL EDT 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0098",
+    "nombre": "BRITNEY SPEARS FANTASY ELECTRIC EDT 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0099",
+    "nombre": "BRITNEY SPEARS FANTASY MIGNIGHT EDP 100 ml 3 PCS SET",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0100",
+    "nombre": "CACHAREL ANAIS ANAIS 100 ml TESTER",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0101",
+    "nombre": "CACHAREL YES I AM EDP 75 ml",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0102",
+    "nombre": "CACHAREL YES I AM PINK FIRST 75 ml",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0103",
+    "nombre": "CALVIN KLEIIN TRUTH 100 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0104",
+    "nombre": "CALVIN KLEIN ENDLESS EUPHORIA EDP 125 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0105",
+    "nombre": "CALVIN KLEIN EUPHORIA SET",
+    "marca": "",
+    "precio": 60000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0106",
+    "nombre": "CAROLINA HERRERA 212 SEXY 100 ml",
+    "marca": "",
+    "precio": 70000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0108",
+    "nombre": "CAROLINA HERRERA VERY GOOD GIRL EDP 80 ML",
+    "marca": "",
+    "precio": 100000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0109",
+    "nombre": "DELICIOUS BODY MIST MANGO 60ml.",
+    "marca": "",
+    "precio": 8000,
+    "stock": 2,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0110",
+    "nombre": "DOLCE & GABANNA LIGHT BLUE 100 ml DEO",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0111",
+    "nombre": "ELIZABETH ARDEN 5TH AVENUE 125 ml EDP",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0113",
+    "nombre": "ELIZABETH ARDEN GREEN TEA MIMOSA 100 ml",
+    "marca": "",
+    "precio": 17000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0114",
+    "nombre": "ELIZABETH ARDEN GREEN TEA NECTARINE BLOSSOM 100 ml",
+    "marca": "",
+    "precio": 17000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0115",
+    "nombre": "ELIZABETH ARDEN TEA COLL EDT +BC 100 ml",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0116",
+    "nombre": "ELLE BODY MIST CHECKY BON BON 250ml.",
+    "marca": "",
+    "precio": 8000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0117",
+    "nombre": "EMPORIO ARMANI IN LOVE WITH YOU 100 ml",
+    "marca": "",
+    "precio": 85000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0118",
+    "nombre": "FANCY TESTER JESSICA SIMPSON",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0119",
+    "nombre": "FRANCK OLIVIER SUN JAVA ROSE OUD 75 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0120",
+    "nombre": "GUESS SEDUCTIVE RED BODY 250 ml",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0121",
+    "nombre": "Guess Girl belle body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0122",
+    "nombre": "Guess nirvana dream body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0123",
+    "nombre": "Guess passion kiss body mist 250ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0124",
+    "nombre": "HALLOWEEN SHOT",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0125",
+    "nombre": "HUGO BOSS SET SCENT WOMEN EDP 50 ML",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0126",
+    "nombre": "JESSICA SIMPSON BODY MIST FANCY 236ml.",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0127",
+    "nombre": "JESSICA SIMPSON BODY MIST FANCY LOVE 236ml.",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0128",
+    "nombre": "JIVI LEMON PIE EDP 100ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0129",
+    "nombre": "JLO GLOW EDT 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0130",
+    "nombre": "JUICY COUTURE VIVA LA JUICY NOIR 100 ml + ROLL ON 5 ml",
+    "marca": "",
+    "precio": 65000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0131",
+    "nombre": "JUST JACK SIMPLY BLACK EDP 100 ml",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0132",
+    "nombre": "KATTY PERRY MEOW 100 ml",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0134",
+    "nombre": "KATY PERRY MAD POTION 100 ml",
+    "marca": "",
+    "precio": 16900,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0135",
+    "nombre": "KATY PERRY PURR EDP 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0136",
+    "nombre": "KENZO WORLD EDP 75ML",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0138",
+    "nombre": "LANCOME LA VIE EST BELLE EDP 100 ML",
+    "marca": "",
+    "precio": 100000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0139",
+    "nombre": "LANCOME TRESOR EDP 100ml.",
+    "marca": "",
+    "precio": 84900,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0140",
+    "nombre": "LATAFFA GIVE ME GOURMAND BERRY ON TOP EDP 75 ML",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0141",
+    "nombre": "LATAFFA GIVE ME GOURMAND CHOCO OVERDOSE EDP 75 ML",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0142",
+    "nombre": "LATAFFA GIVE ME GOURMAND COOKIE CRAVE EDP 75 ML",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0143",
+    "nombre": "LATAFFA GIVE ME GOURMAND WHIPPED PLEASURE EDP 75 ML",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0145",
+    "nombre": "LATAFFA YARA CANDY EDP 100 ML",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0146",
+    "nombre": "LATAFFA YARA EDP 100 ML",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0148",
+    "nombre": "LATAFFA YARA ELIXIR EDP 100ml.",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0149",
+    "nombre": "LATAFFA YARA MOI EDP 100ml.",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0150",
+    "nombre": "LATAFFA YARA TOUS EDP 100ml.",
+    "marca": "",
+    "precio": 32000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0151",
+    "nombre": "MADEMOISELLE TWIST 90 ml MAUBOUSSIN TESTER",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0152",
+    "nombre": "MANCERA PINK ROSES EDP 120 ML",
+    "marca": "",
+    "precio": 120000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0153",
+    "nombre": "MARYAJ ESSENCE COLLECTION SET 3 X 20 ML",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0155",
+    "nombre": "MICHAEL KORS COLLECTION EDP 100 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0156",
+    "nombre": "MICHAEL KORS SEXY AMBER EDP 100 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0157",
+    "nombre": "MONTALE AOUD GREEDY EDP 100 ML",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0159",
+    "nombre": "NICKY MINAJ MINAJESTY EDP 100 ml",
+    "marca": "",
+    "precio": 21600,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0160",
+    "nombre": "NICKY MINAJ PINK FRIDAY 100 ml",
+    "marca": "",
+    "precio": 22000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0161",
+    "nombre": "NINA RICCI BELLA SORBETS EDT 80 ml",
+    "marca": "",
+    "precio": 50000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0162",
+    "nombre": "NINA RICCI LES MONSTERS LUNA",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0163",
+    "nombre": "ORIENTICA LUXURY COLLECTION AMBER ROUGE 80 ml",
+    "marca": "",
+    "precio": 70000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0164",
+    "nombre": "OSCAR DE LA RENTA JASMINE 100 ml",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0165",
+    "nombre": "OSCAR DE LA RENTA SO DE LA RENTA 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0166",
+    "nombre": "PACO RABANNE LADY MILLION ROYAL EDP 80 ML",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0167",
+    "nombre": "PACO RABANNE SET FAME EDP 80ml + 20ml.",
+    "marca": "",
+    "precio": 100000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0168",
+    "nombre": "PARIS HILTON BLING EDP 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0170",
+    "nombre": "PARIS HILTON CAN CAN 4 PIEZAS",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0172",
+    "nombre": "PARIS HILTON SET 100 ml + BL 90 ml + SG 90 ml + 10 ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0174",
+    "nombre": "PEPE JEANS CELEBRATE 80 ml",
+    "marca": "",
+    "precio": 28000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0175",
+    "nombre": "PEPE JEANS CELEBRATE SET",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0176",
+    "nombre": "PEPE JEANS LONDON SET",
+    "marca": "",
+    "precio": 35000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0178",
+    "nombre": "Perry Ellis 360 body mist 236ml",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0179",
+    "nombre": "Perry Ellis 360 purple body mist 236ml",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0180",
+    "nombre": "RALPH LAURENT EDT 100 ml",
+    "marca": "",
+    "precio": 70000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0181",
+    "nombre": "SALVATORE FERRAGAMO SIGNORINA WOMAN EDT 100 ml",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0182",
+    "nombre": "SET MINIATURA MUJER DOLCE GABANNA",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0183",
+    "nombre": "SET MINIATURA MUJER GIORGIO ARMANI",
+    "marca": "",
+    "precio": 55000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0184",
+    "nombre": "THE RITUAL OF AYURVEDA  HAIR Y BODY MIST 50 ml",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0185",
+    "nombre": "THE RITUAL OF HAPPY BUDDHA HAIR Y BODY MIST 50 ml",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0186",
+    "nombre": "TUBBEES CANDY POP GRANDEUR EDP 50ml.",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0187",
+    "nombre": "TUBBEES PINK SUGAR GRANDEUR EDP 50ml.",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0188",
+    "nombre": "TUBBEES TROPICAL ISLAND GRANDEUR EDP 50ml.",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0189",
+    "nombre": "UNGARO FOR HER KIT 100 ml + 10 ml",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0190",
+    "nombre": "UNGARO FRUIT D AMOUR PINK 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0191",
+    "nombre": "UNGARO FRUIT D AMOUR TORQUOISE 100 ml",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0192",
+    "nombre": "VALENTINO DONNA BORN IN ROMA YELLOW EDP 100 ML",
+    "marca": "",
+    "precio": 100000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0193",
+    "nombre": "VALENTINO VALENTINA EDP 80 ML",
+    "marca": "",
+    "precio": 80000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0194",
+    "nombre": "VICTORIA SECRET BODY MIST CHROME PEONY 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0195",
+    "nombre": "VICTORIA SECRET BODY MIST CRISP ORCHID 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0196",
+    "nombre": "VICTORIA SECRET BODY MIST FROSTMELT 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0197",
+    "nombre": "VICTORIA SECRET BODY MIST LOVE SPELL STARLIT 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0198",
+    "nombre": "VICTORIA SECRET BODY MIST MIRROED POM 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0199",
+    "nombre": "VICTORIA SECRET BODY MIST PLATINUM BERRIES 250ml.",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0200",
+    "nombre": "VICTORIA SECRET BODY MIST POOLSIDE SERVICE 250ml.",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0201",
+    "nombre": "VICTORIA SECRET EAU SO PARTY 50ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0202",
+    "nombre": "VICTORIA SECRET LOVE ME 50ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0203",
+    "nombre": "VICTORIA SECRET MIST SECRET CHARM 200 ml",
+    "marca": "",
+    "precio": 14000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0204",
+    "nombre": "VICTORIA SECRET NOIR TEASE 250 ml PERFUME",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0205",
+    "nombre": "VICTORIA SECRET SET PURÉ SEDUCTION 75ml + LIP GLOW",
+    "marca": "",
+    "precio": 25000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0206",
+    "nombre": "VICTORIA SECRET TEASE REBEL 50ml",
+    "marca": "",
+    "precio": 40000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0207",
+    "nombre": "VIKTOR & ROLF MINI SET 4 PIEZAS EDP",
+    "marca": "",
+    "precio": 45000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0208",
+    "nombre": "VIKTOR AND ROLF FLOWERBOMB EDP 100 ML",
+    "marca": "",
+    "precio": 90000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0209",
+    "nombre": "Victoria Secret Crema Corporal Aqua kiss 236 ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0210",
+    "nombre": "Victoria Secret Crema Corporal Cactus Water 236ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0211",
+    "nombre": "Victoria Secret Crema Corporal Cool Blooms 236 ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0212",
+    "nombre": "Victoria Secret Crema Corporal Jasmine Rainfall 236 ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0213",
+    "nombre": "Victoria Secret Crema Corporal Lush Air 236 ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0214",
+    "nombre": "Victoria Secret Crema Corporal love spell 236 ML",
+    "marca": "",
+    "precio": 18000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0215",
+    "nombre": "Victoria Secret Crema Corporal puré seduction 236 ML",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0216",
+    "nombre": "WOMEN SECRET BERRY TEMPTATION 40 ML",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0217",
+    "nombre": "WOMEN SECRET INTIMATE DAYDREAM SET",
+    "marca": "",
+    "precio": 30000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0218",
+    "nombre": "WOMEN SECRET ROSE SEDUCTION 100 ml",
+    "marca": "",
+    "precio": 20000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0219",
+    "nombre": "Woman Dubai body mist 125ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0220",
+    "nombre": "Woman Sidney body mist 125ml",
+    "marca": "",
+    "precio": 12000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0221",
+    "nombre": "YARA air freshener 300ml",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0222",
+    "nombre": "YARA air freshener moi 300ml",
+    "marca": "",
+    "precio": 10000,
+    "stock": 1,
+    "categoria": "dama",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  },
+  {
+    "id": "da0224",
+    "nombre": "LOL EDT 100 ml",
+    "marca": "",
+    "precio": 15000,
+    "stock": 1,
+    "categoria": "niños",
+    "foto": null,
+    "fecha": "2026-05-10T00:00:00.000Z"
+  }
+]
