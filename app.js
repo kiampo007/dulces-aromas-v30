@@ -546,7 +546,7 @@ function confirmarCredito() {
     var totalDeudaActual = deudasActivasCliente.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
     var limite = cliente ? (cliente.limiteCredito || 0) : 0;
     if (limite > 0 && (totalDeudaActual + total) > limite) {
-        if (!confirm('⚠️ Esta venta excede el limite de credito de ' + formatMoney(limite) + '.\nDeuda actual: ' + formatMoney(totalDeudaActual) + '\nNueva deuda: ' + formatMoney(total) + '\nTotal seria: ' + formatMoney(totalDeudaActual + total) + '\n\n¿Continuar de todos modos?')) {
+        if (!confirm('⚠️ Esta venta excede el limite de credito de ' + formatMoney(limite) + '. Deuda actual: ' + formatMoney(totalDeudaActual) + ' Nueva deuda: ' + formatMoney(total) + ' Total seria: ' + formatMoney(totalDeudaActual + total) + ' ¿Continuar de todos modos?')) {
             return;
         }
     }
@@ -1344,7 +1344,7 @@ function confirmarRefinanciar(clienteId) {
     var totalConsolidado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
     var totalOriginal = deudasActivas.reduce(function(s, d) { return s + (d.total || 0); }, 0);
     var totalPagado = deudasActivas.reduce(function(s, d) { return s + (d.totalPagado || 0); }, 0);
-    if (!confirm('⚠️ Se marcaran ' + deudasActivas.length + ' deudas como refinanciadas y se creara una nueva.\n\nTotal consolidado: ' + formatMoney(totalConsolidado) + '\nEn ' + numCuotas + ' cuota(s)\n\n¿Confirmar?')) { return; }
+    if (!confirm('⚠️ Se marcaran ' + deudasActivas.length + ' deudas como refinanciadas y se creara una nueva. Total consolidado: ' + formatMoney(totalConsolidado) + ' En ' + numCuotas + ' cuota(s) ¿Confirmar?')) { return; }
     for (var i = 0; i < deudasActivas.length; i++) {
         for (var j = 0; j < deudas.length; j++) {
             if (deudas[j].id === deudasActivas[i].id) {
@@ -1612,7 +1612,7 @@ function importarBackup(input) {
     var file = input.files[0];
     if (!file) return;
     if (!file.name.endsWith('.xlsx')) { showToast('❌ Solo archivos .xlsx'); input.value = ''; return; }
-    if (!confirm(`⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?`)) { input.value = ''; return; }
+    if (!confirm('⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?')) { input.value = ''; return; }
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
