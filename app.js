@@ -3,12 +3,8 @@
 // 15 fixes criticos aplicados - NO MODIFICAR ESTRUCTURA VISUAL
 // ============================================================
 
-// FIX #14: Loggear precios undefined para debugging
 function formatMoney(amount) {
-    if (isNaN(amount) || amount === null || amount === undefined) {
-        if (amount !== undefined) console.warn('formatMoney: valor invalido', amount);
-        return '$0';
-    }
+    if (isNaN(amount) || amount === null || amount === undefined) return '$0';
     return '$' + Math.round(amount).toLocaleString('es-CL');
 }
 
@@ -32,15 +28,11 @@ function now() {
            String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0');
 }
 
-// FIX #17: ID unico con counter + random fuerte para evitar colisiones multi-pestaña
+// FIX #18: ID unico con counter para evitar colisiones en milisegundos
 var idCounter = 0;
 function generateId() {
     idCounter = (idCounter + 1) % 10000;
-    var randomPart = '';
-    for (var i = 0; i < 4; i++) {
-        randomPart += Math.floor(Math.random() * 36).toString(36);
-    }
-    return Date.now().toString(36) + idCounter.toString(36).padStart(4,'0') + randomPart;
+    return Date.now().toString(36) + idCounter.toString(36).padStart(4,'0') + Math.random().toString(36).substr(2, 5);
 }
 
 // FIX #13: Toast con clearTimeout para evitar acumulacion
@@ -64,10 +56,7 @@ function escapeHtml(text) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;")
         .replace(/`/g, "&#96;")
-        .replace(/\//g, "&#x2F;")
-        .replace(/\x00/g, '')
-        .replace(/\x0b/g, '')
-        .replace(/\x0c/g, '');
+        .replace(/\//g, "&#x2F;");
 }
 
 function normalizarPrecio(valor) {
@@ -126,14 +115,7 @@ function guardarTodo(data) {
     try {
         var json = JSON.stringify(data);
         if (json.length > 5 * 1024 * 1024) { showToast('Datos muy grandes. Exporta backup.'); return false; }
-        // FIX #18: Backup temporal antes de sobrescribir
-        try {
-            localStorage.setItem('da_todo_backup', localStorage.getItem('da_todo') || '');
-        } catch(e) {}
         localStorage.setItem('da_todo', json);
-        // Invalidar cache
-        _cacheData = null;
-        _cacheTimestamp = 0;
         return true;
     } catch(e) {
         if (e.name === 'QuotaExceededError') showToast('⚠️ Almacenamiento lleno. Exporta backup.');
@@ -143,29 +125,18 @@ function guardarTodo(data) {
 }
 
 // FIX #5: Carga atomica + limpieza de keys antiguas migradas
-var _cacheData = null;
-var _cacheTimestamp = 0;
-var CACHE_TTL = 500;
-
 function cargarTodo() {
-    var now = Date.now();
-    if (_cacheData && (now - _cacheTimestamp) < CACHE_TTL) {
-        return _cacheData;
-    }
     try {
         var todo = localStorage.getItem('da_todo');
         if (todo) {
             var parsed = JSON.parse(todo);
-            var result = {
+            return {
                 productos: parsed.productos || [],
                 ventas: parsed.ventas || [],
                 clientes: parsed.clientes || [],
                 deudas: parsed.deudas || [],
                 movimientos: parsed.movimientos || []
             };
-            _cacheData = result;
-            _cacheTimestamp = now;
-            return result;
         }
         // Migracion desde formato antiguo
         var data = {
@@ -183,15 +154,10 @@ function cargarTodo() {
             localStorage.removeItem('da_deudas');
             localStorage.removeItem('da_movimientos');
         }
-        _cacheData = data;
-        _cacheTimestamp = now;
         return data;
     } catch(e) {
         console.error('Error cargando datos:', e);
-        var fallback = {productos: [], ventas: [], clientes: [], deudas: [], movimientos: []};
-        _cacheData = fallback;
-        _cacheTimestamp = now;
-        return fallback;
+        return {productos: [], ventas: [], clientes: [], deudas: [], movimientos: []};
     }
 }
 
@@ -203,10 +169,8 @@ function getMovimientos() { return cargarTodo().movimientos; }
 
 var currentModule = 'dashboard';
 var cart = [];
-var editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null;
+var editingProductId = null;
 var editingDeudaId = null;
-var fotoProductoBase64 = null;
-var fotoProductoEditando = null;
 var fotoProductoBase64 = null;
 var fotoProductoEditando = null;
 
@@ -233,15 +197,8 @@ function restaurarCarrito() {
     } catch(e) { cart = []; }
 }
 
-// FIX #19: Try-catch en guardarCarrito con fallback
 function guardarCarrito() {
-    try { 
-        sessionStorage.setItem('da_cart', JSON.stringify(cart)); 
-    } catch(e) {
-        if (e.name === 'QuotaExceededError') {
-            showToast('⚠️ Carrito muy grande. Vacía algunos items.');
-        }
-    }
+    try { sessionStorage.setItem('da_cart', JSON.stringify(cart)); } catch(e) {}
 }
 
 function navigateTo(module) {
@@ -292,49 +249,6 @@ function updateDashboard() {
     if (dashStock) dashStock.textContent = stockBajo;
     if (dashDeudas) dashDeudas.textContent = deudasVencidas;
     if (headerDate) headerDate.textContent = new Date().toLocaleDateString('es-CL', {weekday:'long', day:'numeric', month:'long'});
-    var alertasContainer = document.getElementById('dash-alertas');
-    var alertasCard = document.getElementById('dash-alertas-card');
-    if (alertasContainer) {
-        var hoyFecha = new Date(); hoyFecha.setHours(0,0,0,0);
-        var alertas = [];
-        var allDeudas = getDeudas().filter(function(d) { return d.estado === 'activa'; });
-        var vencidasHoy = allDeudas.filter(function(d) {
-            if (!d.proxVencimiento) return false;
-            var venc = new Date(d.proxVencimiento);
-            return venc <= hoyFecha;
-        });
-        if (vencidasHoy.length > 0) {
-            alertas.push('<div class="dash-alerta rojo" onclick="navigateTo('deudas')">🔴 ' + vencidasHoy.length + ' cuota(s) vencida(s) hoy</div>');
-        }
-        var proximas = allDeudas.filter(function(d) {
-            if (!d.proxVencimiento) return false;
-            var venc = new Date(d.proxVencimiento);
-            var diff = Math.ceil((venc - hoyFecha) / (1000*60*60*24));
-            return diff > 0 && diff <= 3;
-        });
-        if (proximas.length > 0) {
-            alertas.push('<div class="dash-alerta amarillo" onclick="navigateTo('deudas')">🟡 ' + proximas.length + ' cuota(s) vencen en 3 dias</div>');
-        }
-        var allClientes = getClientes();
-        var clientesAlerta = [];
-        for (var i = 0; i < allClientes.length; i++) {
-            var limite = allClientes[i].limiteCredito || 0;
-            if (limite > 0) {
-                var deudasCli = allDeudas.filter(function(d) { return d.clienteId === allClientes[i].id; });
-                var usado = deudasCli.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-                if ((usado / limite) > 0.8) {
-                    clientesAlerta.push(escapeHtml(allClientes[i].nombre));
-                }
-            }
-        }
-        if (clientesAlerta.length > 0) {
-            alertas.push('<div class="dash-alerta naranja" onclick="navigateTo('clientes')">🟠 ' + clientesAlerta.length + ' cliente(s) con >80% limite usado</div>');
-        }
-        alertasContainer.innerHTML = alertas.length > 0 ? alertas.join('') : '<div class="dash-alerta verde">✅ Sin alertas de deudas</div>';
-        if (alertasCard) alertasCard.style.display = 'block';
-    } else if (alertasCard) {
-        alertasCard.style.display = 'none';
-    }
 }
 
 // ============================================================
@@ -541,16 +455,6 @@ function confirmarCredito() {
     var cliente = null;
     for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === clienteId) { cliente = clientes[i]; break; } }
 
-    // Validar limite de credito
-    var deudasActivasCliente = deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
-    var totalDeudaActual = deudasActivasCliente.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var limite = cliente ? (cliente.limiteCredito || 0) : 0;
-    if (limite > 0 && (totalDeudaActual + total) > limite) {
-        if (!confirm('⚠️ Esta venta excede el limite de credito de ' + formatMoney(limite) + '.\nDeuda actual: ' + formatMoney(totalDeudaActual) + '\nNueva deuda: ' + formatMoney(total) + '\nTotal seria: ' + formatMoney(totalDeudaActual + total) + '\n\n¿Continuar de todos modos?')) {
-            return;
-        }
-    }
-
     // FIX #3: Re-verificar stock
     for (var i = 0; i < cart.length; i++) {
         var p = null;
@@ -571,11 +475,7 @@ function confirmarCredito() {
         if (venc.getDate() !== diaCompra) {
             venc = new Date(venc.getFullYear(), venc.getMonth(), 0);
         }
-        // FIX #15: Guardar en formato local YYYY-MM-DD para evitar problemas de timezone
-        var yyyy = venc.getFullYear();
-        var mm = String(venc.getMonth() + 1).padStart(2, '0');
-        var dd = String(venc.getDate()).padStart(2, '0');
-        vencimientos.push(yyyy + '-' + mm + '-' + dd + 'T00:00:00.000Z');
+        vencimientos.push(venc.toISOString());
     }
 
     var deuda = {
@@ -653,26 +553,57 @@ function cargarFotoProducto(input) {
     input.value = '';
 }
 
-function cargarFotoProducto(input) {
-    var file = input.files[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { showToast('Imagen muy grande. Max 5MB'); return; }
-    var reader = new FileReader();
-    reader.onload = function(e) {
-        showToast('Procesando imagen...');
-        redimensionarImagen(e.target.result, 800, 800, function(resized) {
-            if (!resized) { showToast('Error al procesar imagen'); return; }
-            fotoProductoBase64 = resized;
-            var preview = document.getElementById('prod-foto-img');
-            var previewDiv = document.getElementById('prod-foto-preview');
-            if (preview) preview.src = fotoProductoBase64;
-            if (previewDiv) previewDiv.style.display = 'block';
-            showToast('Foto cargada (' + Math.round(resized.length / 1024) + 'KB)');
-        });
+// FIX #2: Race condition en subir foto - flag de bloqueo + limpieza
+var fotoUploadLock = false;
+function subirFotoProducto(id) {
+    if (fotoUploadLock) { showToast('Espera... otra carga en progreso'); return; }
+    fotoUploadLock = true;
+
+    var input = document.createElement('input');
+    input.type = 'file'; input.accept = 'image/*'; input.style.display = 'none';
+
+    var limpiar = function() {
+        fotoUploadLock = false;
+        if (input.parentNode) document.body.removeChild(input);
     };
-    reader.onerror = function() { showToast('Error al leer imagen'); };
-    reader.readAsDataURL(file);
-    input.value = '';
+
+    // Limpieza si cancela el dialogo (timeout de seguridad)
+    var timeoutCancel = setTimeout(function() {
+        if (fotoUploadLock) { limpiar(); }
+    }, 120000); // 2 minutos maximo
+
+    input.addEventListener('change', function(e) {
+        clearTimeout(timeoutCancel);
+        var targetId = id;
+        var file = e.target.files[0];
+        if (!file) { limpiar(); return; }
+        if (file.size > 5 * 1024 * 1024) { showToast('Imagen muy grande. Max 5MB'); limpiar(); return; }
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+            showToast('Procesando imagen...');
+            redimensionarImagen(ev.target.result, 800, 800, function(resized) {
+                if (!resized) { showToast('Error al procesar'); limpiar(); return; }
+                var data = cargarTodo();
+                var productos = data.productos;
+                var encontrado = false;
+                for (var i = 0; i < productos.length; i++) {
+                    if (productos[i].id === targetId) { productos[i].foto = resized; encontrado = true; break; }
+                }
+                if (encontrado) {
+                    if (guardarTodo(data)) {
+                        showToast('✅ Foto agregada');
+                        renderProductos(); renderInventario(); renderVenta(); renderCatalogo();
+                    } else { showToast('❌ Error al guardar foto'); }
+                } else { showToast('❌ Producto no encontrado'); }
+                limpiar();
+            });
+        };
+        reader.onerror = function() { showToast('Error al leer imagen'); limpiar(); };
+        reader.readAsDataURL(file);
+    });
+
+    document.body.appendChild(input);
+    input.click();
 }
 
 // ============================================================
@@ -685,7 +616,7 @@ function renderProductos() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="p-foto">' : 
-            '<div class="p-foto-placeholder">🌸</div>';
+            '<div class="p-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar foto</div>';
         return '<div class="producto-item">' +
             '<div class="p-left">' + fotoHtml + '</div>' +
             '<div class="p-info"><b>' + escapeHtml(p.nombre) + '</b><br>' + escapeHtml(p.marca || 'Sin marca') + ' | Stock: ' + p.stock + ' | ' + escapeHtml(p.categoria) + '</div>' +
@@ -706,7 +637,7 @@ function filtrarProductos() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="p-foto">' : 
-            '<div class="p-foto-placeholder">🌸</div>';
+            '<div class="p-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar foto</div>';
         return '<div class="producto-item">' +
             '<div class="p-left">' + fotoHtml + '</div>' +
             '<div class="p-info"><b>' + escapeHtml(p.nombre) + '</b><br>' + escapeHtml(p.marca || 'Sin marca') + ' | Stock: ' + p.stock + ' | ' + escapeHtml(p.categoria) + '</div>' +
@@ -718,24 +649,15 @@ function filtrarProductos() {
 }
 
 function showModalProducto() {
-    editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null; fotoProductoBase64 = null; fotoProductoEditando = null;
-    var nombre = document.getElementById('prod-nombre');
-    var marca = document.getElementById('prod-marca');
-    var precio = document.getElementById('prod-precio');
-    var stock = document.getElementById('prod-stock');
-    var cat = document.getElementById('prod-cat');
-    var preview = document.getElementById('prod-foto-preview');
-    var img = document.getElementById('prod-foto-img');
-    var title = document.getElementById('modal-producto-title');
-
-    if (nombre) nombre.value = '';
-    if (marca) marca.value = '';
-    if (precio) precio.value = '';
-    if (stock) stock.value = '';
-    if (cat) cat.value = 'caballero';
-    if (preview) preview.style.display = 'none';
-    if (img) img.src = '';
-    if (title) title.textContent = 'Nuevo Producto';
+    editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null;
+    document.getElementById('prod-nombre').value = '';
+    document.getElementById('prod-marca').value = '';
+    document.getElementById('prod-precio').value = '';
+    document.getElementById('prod-stock').value = '';
+    document.getElementById('prod-cat').value = 'caballero';
+    document.getElementById('prod-foto-preview').style.display = 'none';
+    document.getElementById('prod-foto-img').src = '';
+    document.getElementById('modal-producto-title').textContent = 'Nuevo Producto';
     showModal('modal-producto');
 }
 
@@ -748,30 +670,18 @@ function editarProducto(id) {
     editingProductId = id;
     fotoProductoEditando = p.foto || null;
     fotoProductoBase64 = null;
-
-    var nombre = document.getElementById('prod-nombre');
-    var marca = document.getElementById('prod-marca');
-    var precio = document.getElementById('prod-precio');
-    var stock = document.getElementById('prod-stock');
-    var cat = document.getElementById('prod-cat');
-    var preview = document.getElementById('prod-foto-preview');
-    var img = document.getElementById('prod-foto-img');
-    var title = document.getElementById('modal-producto-title');
-
-    if (nombre) nombre.value = p.nombre;
-    if (marca) marca.value = p.marca || '';
-    if (precio) precio.value = p.precio;
-    if (stock) stock.value = p.stock;
-    if (cat) cat.value = p.categoria || 'caballero';
-    fotoProductoEditando = p.foto || null;
-    fotoProductoBase64 = null;
-    if (p.foto && img && preview) {
-        img.src = p.foto;
-        preview.style.display = 'block';
-    } else if (preview) {
-        preview.style.display = 'none';
+    document.getElementById('prod-nombre').value = p.nombre;
+    document.getElementById('prod-marca').value = p.marca || '';
+    document.getElementById('prod-precio').value = p.precio;
+    document.getElementById('prod-stock').value = p.stock;
+    document.getElementById('prod-cat').value = p.categoria || 'caballero';
+    if (p.foto) {
+        document.getElementById('prod-foto-img').src = p.foto;
+        document.getElementById('prod-foto-preview').style.display = 'block';
+    } else {
+        document.getElementById('prod-foto-preview').style.display = 'none';
     }
-    if (title) title.textContent = 'Editar Producto';
+    document.getElementById('modal-producto-title').textContent = 'Editar Producto';
     showModal('modal-producto');
 }
 
@@ -783,7 +693,6 @@ function guardarProducto() {
     var stock = parseInt(document.getElementById('prod-stock').value) || 0;
     if (!nombre) { showToast('Nombre obligatorio'); return; }
     if (precio <= 0) { showToast('Precio debe ser mayor a 0'); return; }
-    // FIX #3: Validar que stock no quede negativo
     if (stock < 0) { showToast('Stock no puede ser negativo'); return; }
 
     var data = cargarTodo();
@@ -807,8 +716,6 @@ function guardarProducto() {
             }
             p.nombre = nombre; p.marca = document.getElementById('prod-marca').value.trim();
             p.precio = precio; p.stock = stock; p.categoria = document.getElementById('prod-cat').value;
-            if (fotoProductoBase64) p.foto = fotoProductoBase64;
-            else if (fotoProductoEditando) p.foto = fotoProductoEditando;
             if (fotoProductoBase64) p.foto = fotoProductoBase64;
             else if (fotoProductoEditando) p.foto = fotoProductoEditando;
         }
@@ -863,7 +770,7 @@ function renderInventario() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="inv-foto">' : 
-            '<div class="inv-foto-placeholder">🌸</div>';
+            '<div class="inv-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar</div>';
         return '<div class="inv-item">' +
             '<div class="inv-left">' + fotoHtml + '</div>' +
             '<div class="inv-info"><b>' + escapeHtml(p.nombre) + '</b> Stock: ' + p.stock + '</div>' +
@@ -881,7 +788,7 @@ function filtrarInventario() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="inv-foto">' : 
-            '<div class="inv-foto-placeholder">🌸</div>';
+            '<div class="inv-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar</div>';
         return '<div class="inv-item">' +
             '<div class="inv-left">' + fotoHtml + '</div>' +
             '<div class="inv-info"><b>' + escapeHtml(p.nombre) + '</b> Stock: ' + p.stock + '</div>' +
@@ -925,7 +832,7 @@ function renderVentas() {
     if (!container) return;
     if (ventas.length === 0) { container.innerHTML = '<div class="empty">No hay ventas</div>'; return; }
     container.innerHTML = ventas.slice(0, 50).map(function(v) {
-        var metodoLabel = {efectivo: 'Efectivo', transferencia: 'Transferencia', tarjeta: 'Tarjeta', credito: 'Fiado'}[v.metodo] || escapeHtml(v.metodo);
+        var metodoLabel = {efectivo: 'Efectivo', transferencia: 'Transferencia', tarjeta: 'Tarjeta', credito: 'Fiado'}[v.metodo] || v.metodo;
         var clienteInfo = '';
         if (v.metodo === 'credito' && v.clienteId) {
             var cli = null;
@@ -949,15 +856,14 @@ function verDetalleVenta(id) {
         var clientes = data.clientes;
         for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === v.clienteId) { clienteNombre = clientes[i].nombre; break; } }
     }
-    // FIX #10: Escapar TODOS los campos dinamicos
     var html = '<h3>Venta ' + formatDateTime(v.fecha) + '</h3>' +
         '<p><b>Metodo:</b> ' + escapeHtml(v.metodo || 'Efectivo') + '</p>' +
         '<p><b>Total:</b> ' + formatMoney(v.total) + '</p>' +
-        (v.numCuotas > 1 ? '<p><b>Cuotas:</b> ' + escapeHtml(String(v.numCuotas)) + '</p>' : '') +
+        (v.numCuotas > 1 ? '<p><b>Cuotas:</b> ' + v.numCuotas + '</p>' : '') +
         (clienteNombre ? '<p><b>Cliente:</b> ' + escapeHtml(clienteNombre) + '</p>' : '') +
         '<h4>Productos:</h4>' +
         (v.productos ? v.productos.map(function(p) {
-            return '<p><b>' + escapeHtml(p.nombre) + '</b><br>' + escapeHtml(String(p.qty)) + ' x ' + formatMoney(p.precio) + '</p>';
+            return '<p><b>' + escapeHtml(p.nombre) + '</b><br>' + p.qty + ' x ' + formatMoney(p.precio) + '</p>';
         }).join('') : '');
     var detalleContent = document.getElementById('detalle-content');
     if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
@@ -981,11 +887,8 @@ function renderClientes() {
     if (clientes.length === 0) { container.innerHTML = '<div class="empty">No hay clientes</div>'; return; }
     container.innerHTML = clientes.map(function(c) {
         var totalDeuda = deudaPorCliente[c.id] || 0;
-        var limite = c.limiteCredito || 0;
-        var limiteHtml = limite > 0 ? '<br>💰 Limite: ' + formatMoney(limite) + ' · 🟢 Disp: ' + formatMoney(Math.max(0, limite - totalDeuda)) : '';
-        var deudaHtml = totalDeuda > 0 ? '<br>🔴 Deuda: ' + formatMoney(totalDeuda) : '';
         return '<div class="cliente-item" data-action="ver-cliente" data-id="' + escapeHtml(c.id) + '">' +
-            '<div class="cliente-info"><b>' + escapeHtml(c.nombre) + '</b><br>' + escapeHtml(c.telefono || 'Sin telefono') + deudaHtml + limiteHtml + '</div>' +
+            '<div class="cliente-info"><b>' + escapeHtml(c.nombre) + '</b><br>' + escapeHtml(c.telefono || 'Sin telefono') + (totalDeuda > 0 ? ' | Deuda: ' + formatMoney(totalDeuda) : '') + '</div>' +
             '<div class="cliente-arrow">›</div></div>';
     }).join('');
 }
@@ -1003,9 +906,7 @@ function guardarCliente() {
     if (existe) { showToast('Ya existe un cliente con ese nombre'); return; }
 
     var telefonoInput = document.getElementById('cli-telefono');
-    var limiteInput = document.getElementById('cli-limite');
-    var limite = limiteInput ? parseInt(limiteInput.value) || 0 : 0;
-    var cliente = {id: generateId(), nombre: nombre, telefono: telefonoInput ? telefonoInput.value.trim() : '', limiteCredito: limite, fecha: now()};
+    var cliente = {id: generateId(), nombre: nombre, telefono: telefonoInput ? telefonoInput.value.trim() : '', fecha: now()};
     clientes.push(cliente);
 
     if (guardarTodo(data)) {
@@ -1015,378 +916,26 @@ function guardarCliente() {
 }
 
 function verDeudasCliente(clienteId) {
-    renderFichaCliente(clienteId);
-}
-
-function renderFichaCliente(clienteId) {
     var data = cargarTodo();
+    var deudas = data.deudas.filter(function(d) { return d.clienteId === clienteId; });
     var cliente = null;
-    for (var i = 0; i < data.clientes.length; i++) {
-        if (data.clientes[i].id === clienteId) { cliente = data.clientes[i]; break; }
-    }
-    if (!cliente) return;
-    var deudasCliente = data.deudas.filter(function(d) { return d.clienteId === clienteId; });
-    var deudasActivas = deudasCliente.filter(function(d) { return d.estado === 'activa'; });
-    var totalAdeudado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalPagadoHist = deudasCliente.reduce(function(s, d) { return s + (d.totalPagado || 0); }, 0);
-    var limiteCredito = cliente.limiteCredito || 0;
-    var disponible = Math.max(0, limiteCredito - totalAdeudado);
-    var usadoPct = limiteCredito > 0 ? Math.round((totalAdeudado / limiteCredito) * 100) : 0;
-    var html = '<div class="ficha-cliente">' +
-        '<div class="ficha-header">' +
-        '<div class="ficha-avatar">👤</div>' +
-        '<div class="ficha-info">' +
-        '<h2>' + escapeHtml(cliente.nombre) + '</h2>' +
-        '<p>📱 ' + escapeHtml(cliente.telefono || 'Sin telefono') + '</p>' +
-        '<p>📅 Cliente desde: ' + formatDate(cliente.fecha) + '</p>' +
-        '</div></div>';
-    if (limiteCredito > 0) {
-        var barColor = usadoPct > 90 ? 'var(--rojo)' : usadoPct > 70 ? 'var(--amarillo)' : 'var(--turquesa)';
-        html += '<div class="ficha-limite">' +
-            '<div class="ficha-limite-header">' +
-            '<span>💰 Limite: ' + formatMoney(limiteCredito) + '</span>' +
-            '<span class="' + (usadoPct > 90 ? 'warning' : '') + '">Usado: ' + usadoPct + '%</span>' +
-            '</div>' +
-            '<div class="ficha-limite-bar"><div class="ficha-limite-fill" style="width:' + usadoPct + '%;background:' + barColor + '"></div></div>' +
-            '<div class="ficha-limite-footer">' +
-            '<span>🔴 Adeudado: ' + formatMoney(totalAdeudado) + '</span>' +
-            '<span>🟢 Disponible: ' + formatMoney(disponible) + '</span>' +
-            '</div></div>';
+    var clientes = data.clientes;
+    for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === clienteId) { cliente = clientes[i]; break; } }
+    var html = '<h3>Deudas de ' + escapeHtml(cliente ? cliente.nombre : 'Cliente') + '</h3>';
+    if (deudas.length === 0) {
+        html += '<p>Sin deudas registradas</p>';
     } else {
-        html += '<div class="ficha-resumen"><div class="ficha-resumen-item">' +
-            '<span>🔴 Total Adeudado</span><b>' + formatMoney(totalAdeudado) + '</b></div>' +
-            '<div class="ficha-resumen-item"><span>💵 Total Pagado Hist.</span><b>' + formatMoney(totalPagadoHist) + '</b></div></div>';
-    }
-    if (deudasActivas.length > 0) {
-        html += '<h3>📋 Deudas Activas (' + deudasActivas.length + ')</h3>';
-        deudasActivas.sort(function(a, b) {
-            return new Date(a.proxVencimiento || '9999-12-31') - new Date(b.proxVencimiento || '9999-12-31');
-        });
-        html += deudasActivas.map(function(d) {
-            var hoy = new Date(); hoy.setHours(0,0,0,0);
-            var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
-            var vencida = venc && venc <= hoy;
-            var diasVenc = venc ? Math.ceil((venc - hoy) / (1000*60*60*24)) : null;
-            var badgeVenc = vencida ? '<span class="badge-rojo">VENCIDA</span>' :
-                diasVenc !== null && diasVenc <= 3 ? '<span class="badge-amarillo">En ' + diasVenc + ' dias</span>' :
-                '<span class="badge-verde">Al dia</span>';
-            return '<div class="ficha-deuda ' + (vencida ? 'vencida' : '') + '" data-action="ver-deuda-ficha" data-id="' + escapeHtml(d.id) + '">' +
-                '<div class="ficha-deuda-header">' +
-                '<b>Fiado ' + escapeHtml(d.id.slice(-4)) + '</b>' +
-                '<span>' + formatMoney(d.total) + '</span></div>' +
-                '<div class="ficha-deuda-body">' +
-                '<span>' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + ' cuotas · ' + formatMoney(d.saldoPendiente) + ' pendiente</span>' +
-                badgeVenc + '</div>' +
-                '<div class="ficha-deuda-footer">Prox venc: ' + formatDate(d.proxVencimiento) + '</div></div>';
-        }).join('');
-    } else {
-        html += '<div class="empty">✅ Sin deudas activas</div>';
-    }
-    html += '<div class="ficha-actions">' +
-        '<button class="btn" onclick="pagarTodoCliente('' + escapeHtml(clienteId) + '')">💵 Pagar Todo (' + formatMoney(totalAdeudado) + ')</button>' +
-        '<button class="btn btn-secondary" onclick="showModalEstadoCuenta('' + escapeHtml(clienteId) + '')">📋 Estado de Cuenta</button>' +
-        '<button class="btn btn-secondary" onclick="showModalRefinanciar('' + escapeHtml(clienteId) + '')">🔄 Refinanciar</button>' +
-        '</div>';
-    var todosPagos = [];
-    deudasCliente.forEach(function(d) {
-        if (d.pagos) {
-            d.pagos.forEach(function(p) {
-                todosPagos.push({ fecha: p.fecha, monto: p.monto, metodo: p.metodo, cuotaNum: p.cuotaNum });
-            });
-        }
-    });
-    todosPagos.sort(function(a, b) { return new Date(b.fecha) - new Date(a.fecha); });
-    if (todosPagos.length > 0) {
-        html += '<h3>🕐 Historial de Pagos Recientes</h3>';
-        html += todosPagos.slice(0, 10).map(function(p) {
-            return '<div class="ficha-pago">' +
-                '<span>' + formatDateTime(p.fecha) + '</span>' +
-                '<b>' + formatMoney(p.monto) + '</b>' +
-                '<span>' + escapeHtml(p.metodo || 'efectivo') + ' · Cuota ' + (p.cuotaNum || '?') + '</span></div>';
+        var totalAdeudado = deudas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
+        html += '<p><b>Total adeudado:</b> ' + formatMoney(totalAdeudado) + '</p>';
+        html += deudas.map(function(d) {
+            return '<div class="deuda-mini">' +
+                '<div><b>' + formatDate(d.fecha) + '</b> ' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + ' cuotas | Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
+                '<div class="deuda-mini-total">' + formatMoney(d.saldoPendiente) + '</div></div>';
         }).join('');
     }
-    html += '</div>';
     var detalleContent = document.getElementById('detalle-content');
     if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
 }
-
-function pagarTodoCliente(clienteId) {
-    var data = cargarTodo();
-    var deudasActivas = data.deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
-    if (deudasActivas.length === 0) { showToast('Sin deudas activas'); return; }
-    deudasActivas.sort(function(a, b) {
-        return new Date(a.proxVencimiento || '9999-12-31') - new Date(b.proxVencimiento || '9999-12-31');
-    });
-    var totalAdeudado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var html = '<h3>💵 Pagar Deudas de Cliente</h3>' +
-        '<p><strong>Total adeudado:</strong> ' + formatMoney(totalAdeudado) + '</p>' +
-        '<p style="color:var(--gris);font-size:13px;">Se aplicara primero a la deuda mas antigua (FIFO)</p>' +
-        '<div class="ficha-deudas-lista">' +
-        deudasActivas.map(function(d, idx) {
-            return '<div class="ficha-deuda-mini">' +
-                '<b>#' + (idx + 1) + ' · Fiado ' + escapeHtml(d.id.slice(-4)) + '</b>' +
-                '<span>' + formatMoney(d.saldoPendiente) + ' · Venc: ' + formatDate(d.proxVencimiento) + '</span>' +
-                '</div>';
-        }).join('') +
-        '</div>' +
-        '<label style="font-size:13px;color:var(--gris);margin-top:16px;display:block;">Monto a pagar</label>' +
-        '<input type="number" id="pago-total-monto" placeholder="Monto a pagar" value="' + totalAdeudado + '">' +
-        '<p style="color:var(--turquesa);font-size:13px;">Sugerido: ' + formatMoney(totalAdeudado) + ' (pagar todo)</p>' +
-        '<select id="pago-total-metodo">' +
-        '<option value="efectivo">Efectivo</option>' +
-        '<option value="transferencia">Transferencia</option>' +
-        '<option value="tarjeta">Tarjeta</option>' +
-        '</select>' +
-        '<button class="btn" onclick="confirmarPagoTotal('' + escapeHtml(clienteId) + '')">Confirmar Pago</button>';
-    var detalleContent = document.getElementById('detalle-content');
-    if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
-}
-
-function confirmarPagoTotal(clienteId) {
-    var montoInput = document.getElementById('pago-total-monto');
-    var metodoInput = document.getElementById('pago-total-metodo');
-    if (!montoInput) return;
-    var montoTotal = parseInt(montoInput.value) || 0;
-    var metodo = metodoInput ? metodoInput.value : 'efectivo';
-    if (montoTotal <= 0) { showToast('Ingresa un monto valido'); return; }
-    var data = cargarTodo();
-    var deudas = data.deudas;
-    var movimientos = data.movimientos;
-    var deudasActivas = deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
-    deudasActivas.sort(function(a, b) {
-        return new Date(a.proxVencimiento || '9999-12-31') - new Date(b.proxVencimiento || '9999-12-31');
-    });
-    var montoRestante = montoTotal;
-    var deudasSaldadas = 0;
-    for (var i = 0; i < deudasActivas.length && montoRestante > 0; i++) {
-        var d = deudasActivas[i];
-        var idx = -1;
-        for (var j = 0; j < deudas.length; j++) { if (deudas[j].id === d.id) { idx = j; break; } }
-        if (idx === -1) continue;
-        var montoAplicar = Math.min(montoRestante, d.saldoPendiente);
-        d.saldoPendiente -= montoAplicar;
-        d.totalPagado = (d.totalPagado || 0) + montoAplicar;
-        montoRestante -= montoAplicar;
-        var cuotasCubiertas = 0;
-        var montoAcumulado = 0;
-        for (var k = 0; k < d.numCuotasTotal; k++) {
-            var valorCuotaActual = (k === d.numCuotasTotal - 1 && d.ultimaCuotaValor) ? d.ultimaCuotaValor : d.valorCuota;
-            montoAcumulado += valorCuotaActual;
-            if (d.totalPagado >= montoAcumulado) cuotasCubiertas = k + 1;
-        }
-        d.cuotasPagadas = cuotasCubiertas;
-        if (d.vencimientos && d.vencimientos.length > d.cuotasPagadas) {
-            d.proxVencimiento = d.vencimientos[d.cuotasPagadas];
-        } else { d.proxVencimiento = null; }
-        if (!d.pagos) d.pagos = [];
-        d.pagos.push({monto: montoAplicar, fecha: now(), metodo: metodo, cuotaNum: d.cuotasPagadas, tipo: 'pago_total'});
-        movimientos.unshift({id: generateId(), tipo: 'Cobranza', producto: d.clienteNombre, cantidad: montoAplicar, fecha: now()});
-        if (d.saldoPendiente <= 0 || d.cuotasPagadas >= d.numCuotasTotal) {
-            d.estado = 'pagada'; d.saldoPendiente = 0; d.proxVencimiento = null; d.cuotasPagadas = d.numCuotasTotal;
-            deudasSaldadas++;
-        }
-        deudas[idx] = d;
-    }
-    if (movimientos.length > 200) movimientos = movimientos.slice(0, 200);
-    if (guardarTodo(data)) {
-        closeModal('modal-detalle');
-        var msg = '✅ Pago registrado: ' + formatMoney(montoTotal - montoRestante);
-        if (deudasSaldadas > 0) msg += ' · ' + deudasSaldadas + ' deuda(s) saldada(s)';
-        if (montoRestante > 0) msg += ' · Sobrante: ' + formatMoney(montoRestante) + ' (no aplicado)';
-        showToast(msg);
-        renderDeudas(); renderHistorialDeudas(); updateDashboard();
-    } else { showToast('❌ Error al registrar pago'); }
-}
-
-function showModalEstadoCuenta(clienteId) {
-    var data = cargarTodo();
-    var cliente = null;
-    for (var i = 0; i < data.clientes.length; i++) {
-        if (data.clientes[i].id === clienteId) { cliente = data.clientes[i]; break; }
-    }
-    if (!cliente) return;
-    var deudasCliente = data.deudas.filter(function(d) { return d.clienteId === clienteId; });
-    var deudasActivas = deudasCliente.filter(function(d) { return d.estado === 'activa'; });
-    var deudasPagadas = deudasCliente.filter(function(d) { return d.estado !== 'activa'; });
-    var totalAdeudado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalPagado = deudasCliente.reduce(function(s, d) { return s + (d.totalPagado || 0); }, 0);
-    var totalOriginal = deudasCliente.reduce(function(s, d) { return s + (d.total || 0); }, 0);
-    var html = '<div class="estado-cuenta">' +
-        '<div class="estado-header">' +
-        '<h2>📋 Estado de Cuenta</h2>' +
-        '<p><b>' + escapeHtml(cliente.nombre) + '</b></p>' +
-        '<p>' + escapeHtml(cliente.telefono || 'Sin telefono') + '</p>' +
-        '<p style="color:var(--gris);font-size:13px;">Generado: ' + formatDateTime(now()) + '</p>' +
-        '</div>' +
-        '<div class="estado-resumen">' +
-        '<div class="estado-resumen-item"><span>Total Comprado (Fiado)</span><b>' + formatMoney(totalOriginal) + '</b></div>' +
-        '<div class="estado-resumen-item verde"><span>Total Pagado</span><b>' + formatMoney(totalPagado) + '</b></div>' +
-        '<div class="estado-resumen-item rojo"><span>Saldo Pendiente</span><b>' + formatMoney(totalAdeudado) + '</b></div>' +
-        '</div>';
-    if (deudasActivas.length > 0) {
-        html += '<h3>Deudas Activas</h3><table class="estado-table">' +
-            '<tr><th>Fecha</th><th>Total</th><th>Pagado</th><th>Pendiente</th><th>Cuotas</th><th>Prox Venc</th></tr>' +
-            deudasActivas.map(function(d) {
-                return '<tr>' +
-                    '<td>' + formatDate(d.fecha) + '</td>' +
-                    '<td>' + formatMoney(d.total) + '</td>' +
-                    '<td>' + formatMoney(d.totalPagado || 0) + '</td>' +
-                    '<td><b style="color:var(--rojo)">' + formatMoney(d.saldoPendiente) + '</b></td>' +
-                    '<td>' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + '</td>' +
-                    '<td>' + formatDate(d.proxVencimiento) + '</td>' +
-                    '</tr>';
-            }).join('') + '</table>';
-    }
-    if (deudasPagadas.length > 0) {
-        html += '<h3>Deudas Pagadas</h3><table class="estado-table">' +
-            '<tr><th>Fecha</th><th>Total</th><th>Pagado</th><th>Estado</th></tr>' +
-            deudasPagadas.slice(0, 10).map(function(d) {
-                return '<tr>' +
-                    '<td>' + formatDate(d.fecha) + '</td>' +
-                    '<td>' + formatMoney(d.total) + '</td>' +
-                    '<td>' + formatMoney(d.totalPagado || 0) + '</td>' +
-                    '<td><span style="color:var(--verde)">✅ Pagada</span></td>' +
-                    '</tr>';
-            }).join('') + '</table>';
-    }
-    var todosPagos = [];
-    deudasCliente.forEach(function(d) {
-        if (d.pagos) {
-            d.pagos.forEach(function(p) {
-                todosPagos.push({ fecha: p.fecha, monto: p.monto, metodo: p.metodo });
-            });
-        }
-    });
-    todosPagos.sort(function(a, b) { return new Date(b.fecha) - new Date(a.fecha); });
-    if (todosPagos.length > 0) {
-        html += '<h3>Historial de Pagos</h3><table class="estado-table">' +
-            '<tr><th>Fecha</th><th>Monto</th><th>Metodo</th></tr>' +
-            todosPagos.slice(0, 15).map(function(p) {
-                return '<tr>' +
-                    '<td>' + formatDateTime(p.fecha) + '</td>' +
-                    '<td><b style="color:var(--verde)">' + formatMoney(p.monto) + '</b></td>' +
-                    '<td>' + escapeHtml(p.metodo || 'efectivo') + '</td>' +
-                    '</tr>';
-            }).join('') + '</table>';
-    }
-    html += '<div class="estado-footer">' +
-        '<p style="font-size:12px;color:var(--gris);">Dulces Aromas - Sistema de Cuentas por Cobrar</p>' +
-        '</div></div>';
-    var detalleContent = document.getElementById('detalle-content');
-    if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
-}
-
-function showModalRefinanciar(clienteId) {
-    var data = cargarTodo();
-    var cliente = null;
-    for (var i = 0; i < data.clientes.length; i++) {
-        if (data.clientes[i].id === clienteId) { cliente = data.clientes[i]; break; }
-    }
-    if (!cliente) return;
-    var deudasActivas = data.deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
-    if (deudasActivas.length < 2) { showToast('Se necesitan 2+ deudas para refinanciar'); return; }
-    var totalConsolidado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalOriginal = deudasActivas.reduce(function(s, d) { return s + (d.total || 0); }, 0);
-    var totalPagado = deudasActivas.reduce(function(s, d) { return s + (d.totalPagado || 0); }, 0);
-    var html = '<h3>🔄 Refinanciar Deudas</h3>' +
-        '<p><b>Cliente:</b> ' + escapeHtml(cliente.nombre) + '</p>' +
-        '<div class="ficha-deudas-lista">' +
-        deudasActivas.map(function(d, idx) {
-            return '<div class="ficha-deuda-mini">' +
-                '<b>#' + (idx + 1) + ' · Fiado ' + escapeHtml(d.id.slice(-4)) + '</b>' +
-                '<span>Original: ' + formatMoney(d.total) + ' · Pagado: ' + formatMoney(d.totalPagado || 0) + ' · Pendiente: ' + formatMoney(d.saldoPendiente) + '</span>' +
-                '</div>';
-        }).join('') +
-        '</div>' +
-        '<div class="estado-resumen" style="margin:16px 0;">' +
-        '<div class="estado-resumen-item"><span>Total Original</span><b>' + formatMoney(totalOriginal) + '</b></div>' +
-        '<div class="estado-resumen-item verde"><span>Ya Pagado</span><b>' + formatMoney(totalPagado) + '</b></div>' +
-        '<div class="estado-resumen-item rojo"><span>Nuevo Consolidado</span><b>' + formatMoney(totalConsolidado) + '</b></div>' +
-        '</div>' +
-        '<label style="font-size:13px;color:var(--gris);">Numero de cuotas (1-12)</label>' +
-        '<input type="number" id="refi-cuotas" value="3" min="1" max="12">' +
-        '<p id="refi-preview" style="color:var(--turquesa);font-size:14px;font-weight:600;"></p>' +
-        '<button class="btn" onclick="confirmarRefinanciar('' + escapeHtml(clienteId) + '')">Confirmar Refinanciacion</button>';
-    var detalleContent = document.getElementById('detalle-content');
-    if (detalleContent) {
-        detalleContent.innerHTML = html;
-        showModal('modal-detalle');
-        actualizarRefiPreview(totalConsolidado);
-        document.getElementById('refi-cuotas').addEventListener('change', function() { actualizarRefiPreview(totalConsolidado); });
-        document.getElementById('refi-cuotas').addEventListener('keyup', function() { actualizarRefiPreview(totalConsolidado); });
-    }
-}
-
-function actualizarRefiPreview(total) {
-    var numCuotas = parseInt(document.getElementById('refi-cuotas').value) || 1;
-    if (numCuotas < 1) numCuotas = 1; if (numCuotas > 12) numCuotas = 12;
-    document.getElementById('refi-cuotas').value = numCuotas;
-    var preview = document.getElementById('refi-preview');
-    if (!preview) return;
-    var valorBase = Math.floor(total / numCuotas);
-    var ultima = Math.max(0, total - (valorBase * (numCuotas - 1)));
-    if (numCuotas === 1) preview.textContent = '1 pago de ' + formatMoney(total);
-    else preview.textContent = (numCuotas - 1) + ' cuotas de ' + formatMoney(valorBase) + ' + ultima de ' + formatMoney(ultima);
-}
-
-function confirmarRefinanciar(clienteId) {
-    var numCuotas = parseInt(document.getElementById('refi-cuotas').value) || 1;
-    if (numCuotas < 1 || numCuotas > 12) { showToast('Cuotas entre 1 y 12'); return; }
-    var data = cargarTodo();
-    var cliente = null;
-    for (var i = 0; i < data.clientes.length; i++) {
-        if (data.clientes[i].id === clienteId) { cliente = data.clientes[i]; break; }
-    }
-    if (!cliente) return;
-    var deudas = data.deudas;
-    var deudasActivas = deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
-    if (deudasActivas.length < 2) { showToast('Se necesitan 2+ deudas activas'); return; }
-    var totalConsolidado = deudasActivas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalOriginal = deudasActivas.reduce(function(s, d) { return s + (d.total || 0); }, 0);
-    var totalPagado = deudasActivas.reduce(function(s, d) { return s + (d.totalPagado || 0); }, 0);
-    if (!confirm('⚠️ Se marcaran ' + deudasActivas.length + ' deudas como refinanciadas y se creara una nueva.\n\nTotal consolidado: ' + formatMoney(totalConsolidado) + '\nEn ' + numCuotas + ' cuota(s)\n\n¿Confirmar?')) { return; }
-    for (var i = 0; i < deudasActivas.length; i++) {
-        for (var j = 0; j < deudas.length; j++) {
-            if (deudas[j].id === deudasActivas[i].id) {
-                deudas[j].estado = 'refinanciada';
-                deudas[j].saldoPendiente = 0;
-                deudas[j].proxVencimiento = null;
-                deudas[j].nota = 'Refinanciada en ' + now();
-                break;
-            }
-        }
-    }
-    var valorCuotaBase = Math.floor(totalConsolidado / numCuotas);
-    var ultimaCuota = Math.max(0, totalConsolidado - (valorCuotaBase * (numCuotas - 1)));
-    var hoy = new Date();
-    var diaCompra = hoy.getDate();
-    var vencimientos = [];
-    for (var i = 1; i <= numCuotas; i++) {
-        var venc = new Date(hoy.getFullYear(), hoy.getMonth() + i, diaCompra);
-        if (venc.getDate() !== diaCompra) { venc = new Date(venc.getFullYear(), venc.getMonth(), 0); }
-        var yyyy = venc.getFullYear();
-        var mm = String(venc.getMonth() + 1).padStart(2, '0');
-        var dd = String(venc.getDate()).padStart(2, '0');
-        vencimientos.push(yyyy + '-' + mm + '-' + dd + 'T00:00:00.000Z');
-    }
-    var nuevaDeuda = {
-        id: generateId(), clienteId: clienteId, clienteNombre: cliente.nombre,
-        total: totalConsolidado, saldoPendiente: totalConsolidado, numCuotasTotal: numCuotas,
-        cuotasPagadas: 0, totalPagado: 0, valorCuota: valorCuotaBase, ultimaCuotaValor: ultimaCuota,
-        estado: 'activa', fecha: now(), proxVencimiento: vencimientos[0], vencimientos: vencimientos,
-        pagos: [], refinanciadaDe: deudasActivas.map(function(d) { return d.id; }),
-        totalOriginal: totalOriginal, totalPagadoPrevio: totalPagado
-    };
-    deudas.unshift(nuevaDeuda);
-    data.movimientos.unshift({id: generateId(), tipo: 'Refinanciacion', producto: cliente.nombre, cantidad: totalConsolidado, fecha: now()});
-    if (data.movimientos.length > 200) data.movimientos = data.movimientos.slice(0, 200);
-    if (guardarTodo(data)) {
-        closeModal('modal-detalle');
-        showToast('✅ Refinanciacion completada: ' + formatMoney(totalConsolidado) + ' en ' + numCuotas + ' cuota(s)');
-        renderDeudas(); renderHistorialDeudas(); updateDashboard();
-    } else { showToast('❌ Error al refinanciar'); }
-}
-
 
 // ============================================================
 // DEUDAS
@@ -1396,7 +945,7 @@ function renderDeudas() {
     var container = document.getElementById('deudas-lista');
     if (!container) return;
     if (deudas.length === 0) { container.innerHTML = '<div class="empty">No hay deudas activas</div>'; return; }
-    container.innerHTML = deudas.slice(0, 50).map(function(d) {
+    container.innerHTML = deudas.map(function(d) {
         var hoy = new Date(); hoy.setHours(0,0,0,0);
         var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
         var vencida = venc && venc <= hoy;
@@ -1411,14 +960,10 @@ function renderHistorialDeudas() {
     var container = document.getElementById('deudas-historial-lista');
     if (!container) return;
     if (deudas.length === 0) { container.innerHTML = '<div class="empty">No hay deudas en historial</div>'; return; }
-    container.innerHTML = deudas.slice(0, 50).map(function(d) {
-        var estadoLabel = d.estado === 'refinanciada' ? 'Refinanciada' : 'Pagada';
-        var estadoClass = d.estado === 'refinanciada' ? 'refinanciada' : 'pagada';
-        var estadoColor = d.estado === 'refinanciada' ? 'var(--amarillo)' : 'var(--verde)';
-        var bgColor = d.estado === 'refinanciada' ? 'rgba(245,158,11,0.1)' : 'var(--verde-glass)';
-        return '<div class="deuda-item ' + estadoClass + '">' +
-            '<div class="deuda-info"><b>' + escapeHtml(d.clienteNombre) + '</b> Total: ' + formatMoney(d.total) + ' | Pagado: ' + formatMoney((d.total || 0) - (d.saldoPendiente || 0)) + (d.estado === 'refinanciada' ? ' | Consolidado: ' + formatMoney(d.saldoPendiente) : '') + '</div>' +
-            '<div class="deuda-estado" style="background:' + bgColor + ';color:' + estadoColor + ';">' + estadoLabel + '</div></div>';
+    container.innerHTML = deudas.map(function(d) {
+        return '<div class="deuda-item pagada">' +
+            '<div class="deuda-info"><b>' + escapeHtml(d.clienteNombre) + '</b> Total: ' + formatMoney(d.total) + ' | Pagado: ' + formatMoney((d.total || 0) - (d.saldoPendiente || 0)) + '</div>' +
+            '<div class="deuda-estado">Pagada</div></div>';
     }).join('');
 }
 
@@ -1447,7 +992,7 @@ function verDetalleDeuda(id) {
     var deudaPendiente = document.getElementById('deuda-pendiente');
     var deudaCuotas = document.getElementById('deuda-cuotas');
     var deudaProxVenc = document.getElementById('deuda-prox-venc');
-    if (deudaCliente) deudaCliente.textContent = escapeHtml(d.clienteNombre);
+    if (deudaCliente) deudaCliente.textContent = d.clienteNombre;
     if (deudaTotal) deudaTotal.textContent = formatMoney(d.total);
     if (deudaPendiente) deudaPendiente.textContent = formatMoney(d.saldoPendiente);
     if (deudaCuotas) deudaCuotas.textContent = (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal;
@@ -1466,7 +1011,7 @@ function verDetalleDeuda(id) {
     var pagosHtml = '<h4>Historial de Pagos</h4>';
     if (d.pagos && d.pagos.length > 0) {
         pagosHtml += d.pagos.map(function(p) {
-            return '<div class="pago-item"><b>Pago ' + escapeHtml(String(p.cuotaNum || '')) + '</b> ' + formatDateTime(p.fecha) + '<br>' + formatMoney(p.monto) + ' (' + escapeHtml(p.metodo || 'efectivo') + ')</div>';
+            return '<div class="pago-item"><b>Pago ' + (p.cuotaNum || '') + '</b> ' + formatDateTime(p.fecha) + '<br>' + formatMoney(p.monto) + ' (' + escapeHtml(p.metodo || 'efectivo') + ')</div>';
         }).join('');
     } else { pagosHtml += '<p>Sin pagos registrados</p>'; }
     if (d.vencimientos && d.vencimientos.length > 0) {
@@ -1562,9 +1107,9 @@ function showModal(id) {
 function closeModal(id) {
     var modal = document.getElementById(id);
     if (modal) modal.classList.remove('active');
-    if (id === 'modal-producto') { editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null; fotoProductoBase64 = null; fotoProductoEditando = null; }
+    if (id === 'modal-producto') { editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null; }
     if (id === 'modal-deuda-detalle') { editingDeudaId = null; }
-    if (id === 'modal-cliente') { var cn = document.getElementById('cli-nombre'); var ct = document.getElementById('cli-telefono'); var cl = document.getElementById('cli-limite'); if (cn) cn.value = ''; if (ct) ct.value = ''; if (cl) cl.value = ''; }
+    if (id === 'modal-cliente') { var cn = document.getElementById('cli-nombre'); var ct = document.getElementById('cli-telefono'); if (cn) cn.value = ''; if (ct) ct.value = ''; }
     if (id === 'modal-credito') { var cc = document.getElementById('credito-cliente'); var cq = document.getElementById('credito-cuotas'); if (cc) cc.value = ''; if (cq) cq.value = '1'; actualizarCuotaPreview(); }
 }
 
@@ -1593,10 +1138,7 @@ function exportarExcel() {
 
 // FIX #10: Validar schema antes de guardar importacion
 function validarProducto(p) {
-    if (!p || typeof p !== 'object') return false;
-    var precioNormalizado = normalizarPrecio(p.precio);
-    var stockValido = typeof p.stock === 'number' ? p.stock : parseInt(p.stock) || 0;
-    return p.id && p.nombre && precioNormalizado >= 0 && stockValido >= 0;
+    return p && typeof p === 'object' && p.id && p.nombre && typeof p.precio === 'number' && p.precio >= 0 && typeof p.stock === 'number' && p.stock >= 0;
 }
 function validarVenta(v) {
     return v && typeof v === 'object' && v.id && v.productos && Array.isArray(v.productos) && typeof v.total === 'number' && v.total >= 0;
@@ -1612,7 +1154,7 @@ function importarBackup(input) {
     var file = input.files[0];
     if (!file) return;
     if (!file.name.endsWith('.xlsx')) { showToast('❌ Solo archivos .xlsx'); input.value = ''; return; }
-    if (!confirm(`⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?`)) { input.value = ''; return; }
+    if (!confirm('⚠️ Esto reemplazara todos los datos actuales. ¿Estas seguro?')) { input.value = ''; return; }
     var reader = new FileReader();
     reader.onload = function(e) {
         try {
@@ -1638,16 +1180,6 @@ function importarBackup(input) {
             }
             if (workbook.SheetNames.indexOf('Movimientos') >= 0) data.movimientos = XLSX.utils.sheet_to_json(workbook.Sheets['Movimientos']);
 
-            // FIX #5: Verificar que no se pierdan todos los datos
-            var datosPrevios = cargarTodo();
-            var hayDatosPrevios = datosPrevios.productos.length > 0 || datosPrevios.ventas.length > 0;
-            var hayDatosNuevos = data.productos.length > 0 || data.ventas.length > 0 || data.clientes.length > 0;
-
-            if (!hayDatosNuevos && hayDatosPrevios) {
-                showToast('❌ Archivo sin datos validos. Se mantiene la base actual.');
-                return;
-            }
-
             if (data.productos.length === 0 && data.ventas.length === 0 && data.clientes.length === 0) {
                 showToast('❌ Archivo vacio o sin datos validos');
                 return;
@@ -1670,55 +1202,45 @@ function importarBackup(input) {
 // ============================================================
 // EVENT DELEGATION
 // ============================================================
-// FIX #8: Event delegation mejorado - busca data-action en toda la jerarquia
 function setupEventDelegation() {
     document.addEventListener('click', function(e) {
         var target = e.target;
-        var action = null;
-        var id = null;
-        var idx = null;
-
-        // Buscar el elemento con data-action más cercano
         while (target && target !== document.body) {
-            if (target.getAttribute('data-action')) {
-                action = target.getAttribute('data-action');
-                id = target.getAttribute('data-id');
-                idx = target.getAttribute('data-idx');
-                break;
+            var action = target.getAttribute('data-action');
+            if (action) {
+                var id = target.getAttribute('data-id');
+                var idx = target.getAttribute('data-idx');
+                switch(action) {
+                    case 'add-cart':
+                        if (id) { e.stopPropagation(); agregarAlCarro(id); }
+                        return;
+                    case 'cart-minus':
+                        if (idx !== null) { e.stopPropagation(); restarDelCarro(parseInt(idx)); }
+                        return;
+                    case 'cart-plus':
+                        if (idx !== null) { e.stopPropagation(); sumarAlCarro(parseInt(idx)); }
+                        return;
+                    case 'upload-foto':
+                        if (id) { e.stopPropagation(); subirFotoProducto(id); }
+                        return;
+                    case 'edit-prod':
+                        if (id) { e.stopPropagation(); editarProducto(id); }
+                        return;
+                    case 'del-prod':
+                        if (id) { e.stopPropagation(); eliminarProducto(id); }
+                        return;
+                    case 'ver-venta':
+                        if (id) { e.stopPropagation(); verDetalleVenta(id); }
+                        return;
+                    case 'ver-cliente':
+                        if (id) { e.stopPropagation(); verDeudasCliente(id); }
+                        return;
+                    case 'ver-deuda':
+                        if (id) { e.stopPropagation(); verDetalleDeuda(id); }
+                        return;
+                }
             }
             target = target.parentElement;
-        }
-
-        if (!action) return;
-
-        switch(action) {
-            case 'add-cart':
-                if (id) { e.stopPropagation(); agregarAlCarro(id); }
-                return;
-            case 'cart-minus':
-                if (idx !== null) { e.stopPropagation(); restarDelCarro(parseInt(idx)); }
-                return;
-            case 'cart-plus':
-                if (idx !== null) { e.stopPropagation(); sumarAlCarro(parseInt(idx)); }
-                return;
-            case 'edit-prod':
-                if (id) { e.stopPropagation(); editarProducto(id); }
-                return;
-            case 'del-prod':
-                if (id) { e.stopPropagation(); eliminarProducto(id); }
-                return;
-            case 'ver-venta':
-                if (id) { e.stopPropagation(); verDetalleVenta(id); }
-                return;
-            case 'ver-cliente':
-                if (id) { e.stopPropagation(); verDeudasCliente(id); }
-                return;
-            case 'ver-deuda':
-                if (id) { e.stopPropagation(); verDetalleDeuda(id); }
-                return;
-            case 'ver-deuda-ficha':
-                if (id) { e.stopPropagation(); verDetalleDeuda(id); }
-                return;
         }
     });
 }
@@ -2116,11 +1638,26 @@ function initApp() {
     actualizarCarroUI();
     var data = cargarTodo();
     if (data.productos.length === 0) {
-        // FIX: Cargar productos demo directamente sin depender de fetch
-        data.productos = PRODUCTOS_DEMO;
-        guardarTodo(data);
-        showToast(PRODUCTOS_DEMO.length + ' productos precargados');
-        updateDashboard();
+        fetch('productos.json')
+        .then(function(response) { return response.json(); })
+        .then(function(productosDemo) {
+            if (productosDemo && productosDemo.length > 0) {
+                data.productos = productosDemo;
+                guardarTodo(data);
+                showToast(productosDemo.length + ' productos cargados');
+            } else {
+                data.productos = PRODUCTOS_DEMO;
+                guardarTodo(data);
+                showToast(PRODUCTOS_DEMO.length + ' productos precargados');
+            }
+            updateDashboard();
+        })
+        .catch(function(err) {
+            data.productos = PRODUCTOS_DEMO;
+            guardarTodo(data);
+            showToast(PRODUCTOS_DEMO.length + ' productos precargados (offline)');
+            updateDashboard();
+        });
     } else {
         updateDashboard();
     }

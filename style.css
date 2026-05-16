@@ -121,7 +121,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .producto-item:active { transform: scale(0.98); box-shadow: var(--sombra-lg); }
 .p-left { margin-right: 14px; flex-shrink: 0; }
 .p-foto { width: 60px; height: 60px; border-radius: var(--radio-xs); object-fit: cover; border: 2px solid rgba(255,182,193,0.4); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.p-foto-placeholder { width: 60px; height: 60px; border-radius: var(--radio-xs); border: 2px dashed var(--rosa); background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.5) 100%); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.p-foto-placeholder { width: 60px; height: 60px; border-radius: var(--radio-xs); border: 2px dashed var(--rosa); background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.5) 100%); display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; transition: all 0.3s ease; }
 .p-foto-placeholder:hover { background: var(--rosa-suave); transform: scale(1.05); }
 .p-info { flex: 1; font-size: 13px; line-height: 1.5; color: var(--gris); }
 .p-info b { color: var(--negro); font-size: 14px; display: block; margin-bottom: 4px; }
@@ -136,7 +136,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .inv-item { background: var(--blanco-glass); padding: 16px; border-radius: var(--radio-sm); margin-bottom: 10px; display: flex; align-items: center; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); backdrop-filter: blur(4px); }
 .inv-left { margin-right: 14px; flex-shrink: 0; }
 .inv-foto { width: 60px; height: 60px; border-radius: var(--radio-xs); object-fit: cover; border: 2px solid rgba(255,182,193,0.4); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.inv-foto-placeholder { width: 60px; height: 60px; border-radius: var(--radio-xs); border: 2px dashed var(--rosa); background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.5) 100%); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.inv-foto-placeholder { width: 60px; height: 60px; border-radius: var(--radio-xs); border: 2px dashed var(--rosa); background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.5) 100%); display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; }
 .inv-info { flex: 1; font-size: 14px; }
 .inv-info b { display: block; margin-bottom: 4px; color: var(--negro); }
 .inv-stock-bar { width: 100%; height: 28px; background: var(--gris-claro); border-radius: var(--radio-xs); overflow: hidden; margin-top: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
@@ -241,11 +241,6 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .foto-upload:hover { border-color: var(--turquesa); background: var(--turquesa-light); }
 .foto-upload img { width: 100%; max-height: 280px; object-fit: contain; }
 
-/* Foto upload */
-.foto-upload { width: 100%; max-height: 280px; border-radius: var(--radio); overflow: hidden; margin-bottom: 16px; border: 2px dashed var(--rosa); display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.5) 100%); transition: all 0.3s ease; }
-.foto-upload:hover { border-color: var(--turquesa); background: var(--turquesa-light); }
-.foto-upload img { width: 100%; max-height: 280px; object-fit: contain; }
-
 /* Pago item */
 .pago-item { background: linear-gradient(135deg, var(--gris-claro) 0%, var(--blanco) 100%); padding: 14px; border-radius: var(--radio-sm); margin-bottom: 10px; font-size: 14px; border: 1px solid var(--gris-borde); border-left: 3px solid var(--turquesa); }
 
@@ -272,82 +267,6 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
    EMPTY STATE
    ============================================================ */
 .empty { text-align: center; padding: 60px 20px; color: var(--gris); font-size: 15px; font-weight: 500; background: linear-gradient(135deg, var(--gris-claro) 0%, var(--blanco) 100%); border-radius: var(--radio); border: 2px dashed var(--gris-borde); margin: 20px 0; }
-
-
-/* ============================================================
-   FICHA CLIENTE - Cuenta Corriente
-   ============================================================ */
-.ficha-cliente { padding: 8px; }
-.ficha-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--gris-borde); }
-.ficha-avatar { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--turquesa-light) 0%, var(--rosa-suave) 100%); display: flex; align-items: center; justify-content: center; font-size: 32px; flex-shrink: 0; }
-.ficha-info h2 { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--negro); }
-.ficha-info p { font-size: 13px; color: var(--gris); margin-bottom: 2px; }
-
-.ficha-limite { background: var(--blanco-glass); border-radius: var(--radio-sm); padding: 16px; margin-bottom: 20px; border: 1px solid var(--gris-borde); }
-.ficha-limite-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--negro); }
-.ficha-limite-header .warning { color: var(--rojo); }
-.ficha-limite-bar { width: 100%; height: 20px; background: var(--gris-claro); border-radius: 10px; overflow: hidden; margin-bottom: 10px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
-.ficha-limite-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; min-width: 4px; }
-.ficha-limite-footer { display: flex; justify-content: space-between; font-size: 12px; color: var(--gris); font-weight: 600; }
-
-.ficha-resumen { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-.ficha-resumen-item { background: var(--blanco-glass); border-radius: var(--radio-sm); padding: 14px; text-align: center; border: 1px solid var(--gris-borde); }
-.ficha-resumen-item span { display: block; font-size: 11px; color: var(--gris); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
-.ficha-resumen-item b { font-size: 18px; font-weight: 800; color: var(--negro); }
-.ficha-resumen-item.rojo b { color: var(--rojo); }
-.ficha-resumen-item.verde b { color: var(--verde); }
-
-.ficha-cliente h3 { font-size: 16px; font-weight: 700; margin: 20px 0 12px; color: var(--negro); display: flex; align-items: center; gap: 8px; }
-
-.ficha-deuda { background: var(--blanco-glass); border-radius: var(--radio-sm); padding: 14px; margin-bottom: 10px; border: 1px solid var(--gris-borde); border-left: 4px solid var(--turquesa); cursor: pointer; transition: all 0.3s ease; }
-.ficha-deuda.vencida { border-left-color: var(--rojo); background: linear-gradient(135deg, var(--blanco) 0%, var(--rojo-glass) 100%); }
-.ficha-deuda:active { transform: scale(0.98); }
-.ficha-deuda-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.ficha-deuda-header b { font-size: 14px; color: var(--negro); }
-.ficha-deuda-header span { font-size: 14px; font-weight: 800; color: var(--turquesa-dark); }
-.ficha-deuda-body { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gris); margin-bottom: 6px; }
-.ficha-deuda-footer { font-size: 11px; color: var(--gris); font-weight: 600; }
-
-.badge-rojo { background: var(--rojo-glass); color: var(--rojo); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-.badge-amarillo { background: rgba(245,158,11,0.15); color: var(--amarillo); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-.badge-verde { background: var(--verde-glass); color: var(--verde); padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-
-.ficha-actions { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 20px 0; }
-.ficha-actions .btn { margin-top: 0; }
-
-.ficha-pago { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--gris-claro); border-radius: var(--radio-xs); margin-bottom: 6px; font-size: 13px; }
-.ficha-pago b { color: var(--verde); font-weight: 800; }
-.ficha-pago span { color: var(--gris); font-size: 11px; }
-
-.ficha-deudas-lista { margin: 12px 0; }
-.ficha-deuda-mini { background: var(--gris-claro); padding: 10px 14px; border-radius: var(--radio-xs); margin-bottom: 6px; font-size: 12px; }
-.ficha-deuda-mini b { display: block; font-size: 13px; color: var(--negro); margin-bottom: 2px; }
-.ficha-deuda-mini span { color: var(--gris); }
-
-/* ============================================================
-   ESTADO DE CUENTA
-   ============================================================ */
-.estado-cuenta { padding: 8px; }
-.estado-header { text-align: center; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 2px solid var(--gris-borde); }
-.estado-header h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: var(--negro); }
-.estado-header p { font-size: 13px; color: var(--gris); margin-bottom: 2px; }
-
-.estado-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 12px; }
-.estado-table th { background: var(--turquesa-light); color: var(--turquesa-dark); padding: 10px 8px; text-align: left; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-.estado-table td { padding: 10px 8px; border-bottom: 1px solid var(--gris-borde); color: var(--negro); }
-.estado-table tr:hover { background: var(--gris-claro); }
-
-.estado-footer { margin-top: 20px; padding-top: 16px; border-top: 2px solid var(--gris-borde); text-align: center; }
-
-/* ============================================================
-   DASHBOARD ALERTAS
-   ============================================================ */
-.dash-alerta { padding: 12px 16px; border-radius: var(--radio-sm); margin-bottom: 8px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
-.dash-alerta:active { transform: scale(0.98); }
-.dash-alerta.rojo { background: var(--rojo-glass); color: var(--rojo); border-left: 4px solid var(--rojo); }
-.dash-alerta.amarillo { background: rgba(245,158,11,0.15); color: #B45309; border-left: 4px solid var(--amarillo); }
-.dash-alerta.naranja { background: rgba(249,115,22,0.15); color: #C2410C; border-left: 4px solid #F97316; }
-.dash-alerta.verde { background: var(--verde-glass); color: var(--verde); border-left: 4px solid var(--verde); }
 
 /* ============================================================
    RESPONSIVE

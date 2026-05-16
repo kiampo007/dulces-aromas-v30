@@ -36,10 +36,6 @@
           </div>
         </div>
       </div>
-      <div class="card" id="dash-alertas-card" style="display:none;">
-        <h3>⚠️ Alertas de Deudas</h3>
-        <div id="dash-alertas"></div>
-      </div>
       <div class="card">
         <h3>Acciones Rapidas</h3>
         <button class="btn" onclick="navigateTo('venta')">Nueva Venta</button>
@@ -172,8 +168,6 @@
       </div>
       <input type="text" id="cli-nombre" placeholder="Nombre completo">
       <input type="tel" id="cli-telefono" placeholder="Telefono">
-      <label style="font-size:13px;color:var(--gris);margin-bottom:4px;display:block;">Limite de credito (opcional)</label>
-      <input type="number" id="cli-limite" placeholder="Ej: 150000" min="0">
       <button class="btn" onclick="guardarCliente()">Guardar Cliente</button>
     </div>
   </div>
@@ -189,10 +183,6 @@
         <img id="prod-foto-img" src="" alt="Foto del producto">
       </div>
       <input type="file" id="prod-foto-input" accept="image/*" style="display:none;" onchange="cargarFotoProducto(this)">
-      <button class="btn btn-secondary" onclick="document.getElementById('prod-foto-input').click()">
-        <span style="font-size:18px;">&#128248;</span> Subir Foto (Camara/Galeria)
-      </button>
-      </div>
       <button class="btn btn-secondary" onclick="document.getElementById('prod-foto-input').click()">
         <span style="font-size:18px;">&#128248;</span> Subir Foto (Camara/Galeria)
       </button>

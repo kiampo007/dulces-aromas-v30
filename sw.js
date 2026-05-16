@@ -4,8 +4,7 @@ const STATIC_ASSETS = [
   './index.html',
   './style.css',
   './app.js',
-  './productos.json',
-  './manifest.json'
+  './productos.json'
 ];
 
 // ============================================================
