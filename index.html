@@ -115,7 +115,16 @@
 
     <!-- CATALOGO -->
     <div id="mod-catalogo" class="module">
-      <div class="product-grid" id="catalogo-lista"></div>
+      <div class="catalogo-paginacion">
+        <button class="cat-page-btn" id="cat-prev" onclick="catalogoPrev()">&#9664;</button>
+        <span class="cat-page-info" id="cat-page-info">1 / 1</span>
+        <button class="cat-page-btn" id="cat-next" onclick="catalogoNext()">&#9654;</button>
+      </div>
+      <div class="catalogo-slide-container" id="catalogo-slide-container">
+        <div class="catalogo-pages-wrapper" id="catalogo-pages-wrapper">
+          <div class="product-grid catalogo-page" id="catalogo-lista"></div>
+        </div>
+      </div>
     </div>
 
     <!-- CONFIG -->

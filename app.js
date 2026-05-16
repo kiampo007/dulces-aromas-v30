@@ -1080,20 +1080,168 @@ function registrarPagoDeuda() {
 }
 
 // ============================================================
-// CATALOGO
+// CATALOGO - Slide pagination (drag to move, release to snap)
 // ============================================================
+var catalogoPaginaActual = 0;
+var catalogoPaginas = [];
+var catalogoItemsPorPagina = 10;
+
+// Slide state
+var catSlideStartX = 0;
+var catSlideCurrentX = 0;
+var catSlideDelta = 0;
+var catSlideIsDragging = false;
+var catSlideWrapper = null;
+
 function renderCatalogo() {
     var productos = getProductos().filter(function(p) { return p.stock > 0; });
-    var container = document.getElementById('catalogo-lista');
+    var wrapper = document.getElementById('catalogo-pages-wrapper');
+    var pageInfo = document.getElementById('cat-page-info');
+    if (!wrapper) return;
+    catSlideWrapper = wrapper;
+
+    if (productos.length === 0) {
+        wrapper.innerHTML = '<div class="product-grid catalogo-page"><div class="empty">No hay productos disponibles</div></div>';
+        if (pageInfo) pageInfo.textContent = '0 / 0';
+        catalogoPaginas = []; catalogoPaginaActual = 0;
+        return;
+    }
+
+    catalogoPaginas = [];
+    for (var i = 0; i < productos.length; i += catalogoItemsPorPagina) {
+        catalogoPaginas.push(productos.slice(i, i + catalogoItemsPorPagina));
+    }
+
+    var html = '';
+    for (var p = 0; p < catalogoPaginas.length; p++) {
+        html += '<div class="product-grid catalogo-page" data-page="' + p + '">' +
+            catalogoPaginas[p].map(function(prod) {
+                var fotoHtml = prod.foto ? '<img src="' + escapeHtml(prod.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder">🌸</div>';
+                return '<div class="catalogo-card">' + fotoHtml +
+                    '<div class="cat-nombre">' + escapeHtml(prod.nombre) + '</div>' +
+                    '<div class="cat-precio">' + formatMoney(prod.precio) + '</div>' +
+                    '<div class="cat-stock">Stock: ' + prod.stock + '</div></div>';
+            }).join('') + '</div>';
+    }
+    wrapper.innerHTML = html;
+
+    catalogoPaginaActual = 0;
+    catalogoUpdateSlide(false);
+    catalogoSetupSlide();
+}
+
+function catalogoUpdateSlide(animate) {
+    if (!catSlideWrapper) return;
+    var translate = -(catalogoPaginaActual * 100);
+    catSlideWrapper.style.transition = animate ? 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+    catSlideWrapper.style.transform = 'translateX(' + translate + '%)';
+
+    var pageInfo = document.getElementById('cat-page-info');
+    var prevBtn = document.getElementById('cat-prev');
+    var nextBtn = document.getElementById('cat-next');
+    if (pageInfo) pageInfo.textContent = catalogoPaginas.length > 0 ? (catalogoPaginaActual + 1) + ' / ' + catalogoPaginas.length : '0 / 0';
+    if (prevBtn) prevBtn.style.opacity = catalogoPaginaActual === 0 ? '0.3' : '1';
+    if (nextBtn) nextBtn.style.opacity = catalogoPaginas.length === 0 || catalogoPaginaActual >= catalogoPaginas.length - 1 ? '0.3' : '1';
+}
+
+function catalogoNext() {
+    if (catalogoPaginaActual < catalogoPaginas.length - 1) {
+        catalogoPaginaActual++;
+        catalogoUpdateSlide(true);
+    }
+}
+
+function catalogoPrev() {
+    if (catalogoPaginaActual > 0) {
+        catalogoPaginaActual--;
+        catalogoUpdateSlide(true);
+    }
+}
+
+function catalogoSetupSlide() {
+    var container = document.getElementById('catalogo-slide-container');
     if (!container) return;
-    if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos disponibles</div>'; return; }
-    container.innerHTML = productos.map(function(p) {
-        var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder">🌸</div>';
-        return '<div class="catalogo-card">' + fotoHtml +
-            '<div class="cat-nombre">' + escapeHtml(p.nombre) + '</div>' +
-            '<div class="cat-precio">' + formatMoney(p.precio) + '</div>' +
-            '<div class="cat-stock">Stock: ' + p.stock + '</div></div>';
-    }).join('');
+
+    // Touch
+    container.ontouchstart = function(e) {
+        catSlideIsDragging = true;
+        catSlideStartX = e.touches[0].clientX;
+        catSlideCurrentX = catSlideStartX;
+        catSlideDelta = 0;
+        if (catSlideWrapper) catSlideWrapper.style.transition = 'none';
+    };
+
+    container.ontouchmove = function(e) {
+        if (!catSlideIsDragging) return;
+        catSlideCurrentX = e.touches[0].clientX;
+        catSlideDelta = catSlideCurrentX - catSlideStartX;
+        var baseTranslate = -(catalogoPaginaActual * 100);
+        var containerWidth = container.offsetWidth || window.innerWidth;
+        var percentDelta = (catSlideDelta / containerWidth) * 100;
+        if (catSlideWrapper) catSlideWrapper.style.transform = 'translateX(' + (baseTranslate + percentDelta) + '%)';
+        // Prevent vertical scroll during horizontal drag
+        if (Math.abs(catSlideDelta) > 10) {
+            e.preventDefault();
+        }
+    };
+
+    container.ontouchend = function(e) {
+        if (!catSlideIsDragging) return;
+        catSlideIsDragging = false;
+        var containerWidth = container.offsetWidth || window.innerWidth;
+        var threshold = containerWidth * 0.25; // 25% threshold
+        if (catSlideDelta < -threshold && catalogoPaginaActual < catalogoPaginas.length - 1) {
+            catalogoPaginaActual++;
+        } else if (catSlideDelta > threshold && catalogoPaginaActual > 0) {
+            catalogoPaginaActual--;
+        }
+        catalogoUpdateSlide(true);
+    };
+
+    container.ontouchcancel = function() {
+        catSlideIsDragging = false;
+        catalogoUpdateSlide(true);
+    };
+
+    // Mouse (desktop testing)
+    container.onmousedown = function(e) {
+        catSlideIsDragging = true;
+        catSlideStartX = e.clientX;
+        catSlideCurrentX = catSlideStartX;
+        catSlideDelta = 0;
+        if (catSlideWrapper) catSlideWrapper.style.transition = 'none';
+        e.preventDefault();
+    };
+
+    container.onmousemove = function(e) {
+        if (!catSlideIsDragging) return;
+        catSlideCurrentX = e.clientX;
+        catSlideDelta = catSlideCurrentX - catSlideStartX;
+        var baseTranslate = -(catalogoPaginaActual * 100);
+        var containerWidth = container.offsetWidth || window.innerWidth;
+        var percentDelta = (catSlideDelta / containerWidth) * 100;
+        if (catSlideWrapper) catSlideWrapper.style.transform = 'translateX(' + (baseTranslate + percentDelta) + '%)';
+    };
+
+    container.onmouseup = function(e) {
+        if (!catSlideIsDragging) return;
+        catSlideIsDragging = false;
+        var containerWidth = container.offsetWidth || window.innerWidth;
+        var threshold = containerWidth * 0.25;
+        if (catSlideDelta < -threshold && catalogoPaginaActual < catalogoPaginas.length - 1) {
+            catalogoPaginaActual++;
+        } else if (catSlideDelta > threshold && catalogoPaginaActual > 0) {
+            catalogoPaginaActual--;
+        }
+        catalogoUpdateSlide(true);
+    };
+
+    container.onmouseleave = function() {
+        if (catSlideIsDragging) {
+            catSlideIsDragging = false;
+            catalogoUpdateSlide(true);
+        }
+    };
 }
 
 // ============================================================
