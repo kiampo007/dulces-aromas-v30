@@ -59,6 +59,789 @@ function escapeHtml(text) {
         .replace(/\//g, "&#x2F;");
 }
 
+
+// ============================================================
+// NOTAS OLFATIVAS POR PRODUCTO
+// ============================================================
+var NOTAS_OLFATIVAS = {
+  "da0001": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0002": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0003": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0004": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0005": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas aromáticas en formato de cuidado personal.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Perfecto para rutina de baño. Deja la piel perfumada y fresca."
+  },
+  "da0009": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas profundas y envolventes para la noche.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia sofisticada perfecta para salidas nocturnas y eventos formales."
+  },
+  "da0010": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0011": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0012": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Versión intensificada con mayor concentración de notas de fondo.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Para quienes buscan una fragancia con mayor duración y proyección."
+  },
+  "da0013": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel. Versión intensificada con mayor concentración de notas de fondo.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Para quienes buscan una fragancia con mayor duración y proyección."
+  },
+  "da0014": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0016": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0017": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0018": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0021": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas amaderadas cálidas con sándalo y cedro.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia elegante y terrosa, perfecta para el otoño."
+  },
+  "da0022": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0023": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0024": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0026": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0027": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0028": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0029": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0030": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0031": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0032": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0033": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0034": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0035": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Versión intensificada con mayor concentración de notas de fondo. Notas profundas y envolventes para la noche.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia sofisticada perfecta para salidas nocturnas y eventos formales."
+  },
+  "da0037": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea. Notas solares y cálidas con toques de flor de tiaré y coco.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia veraniega perfecta para días de playa y vacaciones."
+  },
+  "da0038": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0039": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0040": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas solares y cálidas con toques de flor de tiaré y coco. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0041": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0043": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0045": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0046": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0047": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0048": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0049": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0051": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0053": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0054": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0055": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0056": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0058": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0059": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0060": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0061": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0063": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0064": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0065": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0066": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios. Versión intensificada con mayor concentración de notas de fondo.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Para quienes buscan una fragancia con mayor duración y proyección."
+  },
+  "da0067": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0068": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0069": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Ideal para días calurosos y uso diario en primavera/verano."
+  },
+  "da0070": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0071": {
+    "notas": "Notas de salida: Cítricos (bergamota, limón), especias (pimienta, cardamomo). Notas de corazón: Maderas (cedro, sándalo), lavanda, geranio. Notas de fondo: Almizcle, ámbar, vetiver, pachulí.",
+    "recomendacion": "Ideal para el hombre moderno y seguro. Perfecto para uso diario y ocasiones especiales. Aplica en puntos de pulso para mayor duración."
+  },
+  "da0072": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0073": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0074": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas aromáticas en formato de cuidado personal.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Perfecto para rutina de baño. Deja la piel perfumada y fresca."
+  },
+  "da0075": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0077": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0078": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0079": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0080": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0081": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0082": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para días calurosos y uso diario en primavera/verano."
+  },
+  "da0083": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0085": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0086": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0087": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0088": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0089": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0090": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0091": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0092": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel. Notas florales centradas en la rosa de Grasse con matices atalcados.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia romántica y femenina, perfecta para citas y eventos elegantes."
+  },
+  "da0093": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0094": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0095": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0096": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0098": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0099": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios. Notas profundas y envolventes para la noche.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia sofisticada perfecta para salidas nocturnas y eventos formales."
+  },
+  "da0100": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación tester, mismo aroma en formato económico.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente relación calidad-precio. Ideal para uso personal."
+  },
+  "da0101": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0102": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0103": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0104": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0105": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0106": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0108": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0109": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0110": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea. Notas refrescantes con acción desodorante y protectora.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para uso diario después del baño. Proporciona frescura durante todo el día."
+  },
+  "da0111": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0113": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0114": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0115": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0116": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0117": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0118": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación tester, mismo aroma en formato económico.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente relación calidad-precio. Ideal para uso personal."
+  },
+  "da0119": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas florales centradas en la rosa de Grasse con matices atalcados. Notas de madera de oud (aguilaria) con carácter oriental intenso. Notas solares y cálidas con toques de flor de tiaré y coco.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia veraniega perfecta para días de playa y vacaciones."
+  },
+  "da0120": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0121": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0122": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0123": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0124": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0125": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0126": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0127": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0128": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas cítricas vibrantes y energizantes.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia refrescante ideal para el día a día y climas cálidos."
+  },
+  "da0129": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0130": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas. Aplicador roll-on para aplicación precisa y controlada.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Perfecto para retoques durante el día. Fácil de llevar en el bolso."
+  },
+  "da0131": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0132": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0134": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0135": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0136": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0138": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0139": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0140": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas gourmand dulces con vainilla, caramelo y toques comestibles.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia adictiva y reconfortante, ideal para otoño/invierno."
+  },
+  "da0141": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas gourmand dulces con vainilla, caramelo y toques comestibles.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia adictiva y reconfortante, ideal para otoño/invierno."
+  },
+  "da0142": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas gourmand dulces con vainilla, caramelo y toques comestibles.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia adictiva y reconfortante, ideal para otoño/invierno."
+  },
+  "da0143": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas gourmand dulces con vainilla, caramelo y toques comestibles.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia adictiva y reconfortante, ideal para otoño/invierno."
+  },
+  "da0145": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0146": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0148": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0149": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0150": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0151": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación tester, mismo aroma en formato económico.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente relación calidad-precio. Ideal para uso personal."
+  },
+  "da0152": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas florales centradas en la rosa de Grasse con matices atalcados.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia romántica y femenina, perfecta para citas y eventos elegantes."
+  },
+  "da0153": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0155": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0156": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas ambarinas cálidas y resinadas.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia envolvente y sensual, ideal para la noche."
+  },
+  "da0157": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas de madera de oud (aguilaria) con carácter oriental intenso.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia sofisticada y oriental, perfecta para ocasiones especiales."
+  },
+  "da0159": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0160": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0161": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0162": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0163": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas ambarinas cálidas y resinadas.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia envolvente y sensual, ideal para la noche."
+  },
+  "da0164": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0165": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0166": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0167": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0168": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0170": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0172": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0174": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0175": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0176": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0178": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0179": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0180": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0181": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0182": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios. Presentación en formato miniatura, ideal para viaje o bolso.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Perfecto para llevar en el bolso o para regalo. Mismo aroma, formato compacto."
+  },
+  "da0183": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios. Presentación en formato miniatura, ideal para viaje o bolso.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Perfecto para llevar en el bolso o para regalo. Mismo aroma, formato compacto."
+  },
+  "da0184": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0185": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0186": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0187": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0188": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0189": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0190": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0191": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0192": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0193": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0194": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0195": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0196": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0197": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0198": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0199": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0200": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0201": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0202": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0203": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0204": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas oscuras y misteriosas con toques de cuero y especias profundas.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia seductora perfecta para la noche y ocasiones especiales."
+  },
+  "da0205": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios. Producto labial con aroma delicado.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para completar el look con un toque de color y fragancia sutil."
+  },
+  "da0206": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0207": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios. Presentación en formato miniatura, ideal para viaje o bolso.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Perfecto para llevar en el bolso o para regalo. Mismo aroma, formato compacto."
+  },
+  "da0208": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0209": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0210": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0211": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0212": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0213": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0214": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0215": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Textura cremosa con notas fragantes que hidratan y perfuman.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Aplica sobre piel limpia y seca para mejor absorción y duración del aroma."
+  },
+  "da0216": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable."
+  },
+  "da0217": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Presentación en set con productos complementarios.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Excelente opción para regalo. Incluye múltiples productos de la misma línea olfativa."
+  },
+  "da0218": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas florales centradas en la rosa de Grasse con matices atalcados.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Fragancia romántica y femenina, perfecta para citas y eventos elegantes."
+  },
+  "da0219": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0220": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas refrescantes y ligeras perfectas para hidratar la piel.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para aplicar después del baño o durante el día para refrescar."
+  },
+  "da0221": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea. Notas diseñadas para ambientar espacios con fragancia duradera.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para hogar, oficina o vehículo. No aplicar directamente sobre la piel."
+  },
+  "da0222": {
+    "notas": "Notas de salida: Frutas (mandarina, pera), flores (jazmín, rosa). Notas de corazón: Flores blancas (lirio, gardenia), especias suaves (canela, vainilla). Notas de fondo: Almizcle, ámbar, sándalo, pachulí. Notas acuáticas y marinas que evocan frescura mediterránea. Notas diseñadas para ambientar espacios con fragancia duradera.",
+    "recomendacion": "Fragancia femenina y elegante. Perfecta para el día a día y eventos especiales. Su estela delicada deja una impresión memorable. Ideal para hogar, oficina o vehículo. No aplicar directamente sobre la piel."
+  },
+  "da0224": {
+    "notas": "Notas de salida: Cítricos suaves (naranja, limón), frutas (manzana, pera). Notas de corazón: Flores delicadas (azahar, madreselva). Notas de fondo: Almizcle blanco, sándalo suave, notas empolvadas.",
+    "recomendacion": "Fragancia fresca y delicada ideal para los más pequeños. Suave con la piel y con un aroma reconfortante que evoca limpieza y ternura."
+  }
+};
+
 function normalizarPrecio(valor) {
     if (typeof valor === 'number') return valor;
     if (typeof valor === 'string') {
@@ -1117,7 +1900,7 @@ function renderCatalogo() {
         html += '<div class="product-grid catalogo-page" data-page="' + p + '">' +
             catalogoPaginas[p].map(function(prod) {
                 var fotoHtml = prod.foto ? '<img src="' + escapeHtml(prod.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder">🌸</div>';
-                return '<div class="catalogo-card">' + fotoHtml +
+                return '<div class="catalogo-card" data-action="ver-catalogo" data-id="' + escapeHtml(prod.id) + '" style="cursor:pointer;">' + fotoHtml +
                     '<div class="cat-nombre">' + escapeHtml(prod.nombre) + '</div>' +
                     '<div class="cat-precio">' + formatMoney(prod.precio) + '</div>' +
                     '<div class="cat-stock">Stock: ' + prod.stock + '</div></div>';
@@ -1242,6 +2025,33 @@ function catalogoSetupSlide() {
             catalogoUpdateSlide(true);
         }
     };
+}
+
+
+// ============================================================
+// DETALLE CATALOGO - Notas olfativas y recomendación
+// ============================================================
+function verDetalleCatalogo(id) {
+    var data = cargarTodo();
+    var productos = data.productos;
+    var p = null;
+    for (var i = 0; i < productos.length; i++) { if (productos[i].id === id) { p = productos[i]; break; } }
+    if (!p) return;
+
+    var notas = NOTAS_OLFATIVAS[id] || {notas: 'Notas no disponibles.', recomendacion: 'Disfruta esta fragancia única.'};
+
+    var html = '<h3 style="color:var(--turquesa-dark);margin-bottom:8px;">' + escapeHtml(p.nombre) + '</h3>' +
+        '<p style="font-size:18px;font-weight:800;color:var(--turquesa-dark);margin-bottom:16px;">' + formatMoney(p.precio) + '</p>' +
+        '<div style="background:linear-gradient(135deg, var(--turquesa-light) 0%, var(--azul-verdoso-glass) 100%);padding:16px;border-radius:var(--radio-sm);margin-bottom:16px;border:1px solid var(--gris-borde);">' +
+        '<h4 style="color:var(--turquesa-dark);margin-bottom:8px;font-size:14px;">🌸 Notas Olfativas</h4>' +
+        '<p style="font-size:13px;line-height:1.6;color:var(--negro);">' + escapeHtml(notas.notas) + '</p></div>' +
+        '<div style="background:linear-gradient(135deg, var(--rosa-suave) 0%, var(--blanco) 100%);padding:16px;border-radius:var(--radio-sm);margin-bottom:16px;border:1px solid var(--gris-borde);">' +
+        '<h4 style="color:var(--turquesa-dark);margin-bottom:8px;font-size:14px;">💡 Recomendación</h4>' +
+        '<p style="font-size:13px;line-height:1.6;color:var(--negro);">' + escapeHtml(notas.recomendacion) + '</p></div>' +
+        '<p style="font-size:13px;color:var(--gris);margin-top:8px;">Stock disponible: <b>' + p.stock + ' unidades</b></p>';
+
+    var detalleContent = document.getElementById('detalle-content');
+    if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
 }
 
 // ============================================================
@@ -1385,6 +2195,9 @@ function setupEventDelegation() {
                         return;
                     case 'ver-deuda':
                         if (id) { e.stopPropagation(); verDetalleDeuda(id); }
+                        return;
+                    case 'ver-catalogo':
+                        if (id) { e.stopPropagation(); verDetalleCatalogo(id); }
                         return;
                 }
             }
