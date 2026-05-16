@@ -917,39 +917,22 @@ function guardarCliente() {
 
 function verDeudasCliente(clienteId) {
     var data = cargarTodo();
-    var deudas = data.deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
+    var deudas = data.deudas.filter(function(d) { return d.clienteId === clienteId; });
     var cliente = null;
     var clientes = data.clientes;
     for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === clienteId) { cliente = clientes[i]; break; } }
-
-    var totalAdeudado = deudas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalCuotas = deudas.reduce(function(s, d) { return s + d.numCuotasTotal; }, 0);
-    var cuotasPagadas = deudas.reduce(function(s, d) { return s + (d.cuotasPagadas || 0); }, 0);
-
-    var html = '<h3>Deudas de ' + escapeHtml(cliente ? cliente.nombre : 'Cliente') + '</h3>' +
-        '<div style="background:linear-gradient(135deg, var(--turquesa-light) 0%, var(--azul-verdoso-glass) 100%);padding:16px;border-radius:var(--radio-sm);margin-bottom:16px;border:1px solid var(--gris-borde);">' +
-        '<p style="font-size:16px;font-weight:700;color:var(--negro);">Total adeudado: ' + formatMoney(totalAdeudado) + '</p>' +
-        '<p style="font-size:13px;color:var(--gris);">Cuotas pagadas: ' + cuotasPagadas + '/' + totalCuotas + ' | Deudas activas: ' + deudas.length + '</p></div>';
-
+    var html = '<h3>Deudas de ' + escapeHtml(cliente ? cliente.nombre : 'Cliente') + '</h3>';
     if (deudas.length === 0) {
-        html += '<p>Sin deudas activas</p>';
+        html += '<p>Sin deudas registradas</p>';
     } else {
-        html += '<h4 style="margin-bottom:12px;color:var(--turquesa-dark);">Detalle por deuda:</h4>';
-        html += deudas.map(function(d, idx) {
-            var hoy = new Date(); hoy.setHours(0,0,0,0);
-            var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
-            var vencida = venc && venc <= hoy;
-            return '<div class="deuda-mini" style="border-left:3px solid ' + (vencida ? 'var(--rojo)' : 'var(--turquesa)') + ';">' +
-                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
-                '<b>Deuda #' + (idx + 1) + '</b>' +
-                '<span style="font-size:12px;color:' + (vencida ? 'var(--rojo)' : 'var(--gris)') + ';">' + (vencida ? '⚠️ Vencida' : 'Activa') + '</span></div>' +
-                '<div>Fecha: ' + formatDate(d.fecha) + ' | Cuotas: ' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + '</div>' +
-                '<div>Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
-                '<div style="font-size:18px;font-weight:800;color:var(--turquesa-dark);margin-top:8px;">' + formatMoney(d.saldoPendiente) + '</div>' +
-                '<button class="btn" style="margin-top:10px;font-size:13px;padding:10px;" onclick="verDetalleDeuda('' + escapeHtml(d.id) + '')">Ver detalle / Pagar</button></div>';
+        var totalAdeudado = deudas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
+        html += '<p><b>Total adeudado:</b> ' + formatMoney(totalAdeudado) + '</p>';
+        html += deudas.map(function(d) {
+            return '<div class="deuda-mini">' +
+                '<div><b>' + formatDate(d.fecha) + '</b> ' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + ' cuotas | Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
+                '<div class="deuda-mini-total">' + formatMoney(d.saldoPendiente) + '</div></div>';
         }).join('');
     }
-
     var detalleContent = document.getElementById('detalle-content');
     if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
 }
@@ -962,67 +945,13 @@ function renderDeudas() {
     var container = document.getElementById('deudas-lista');
     if (!container) return;
     if (deudas.length === 0) { container.innerHTML = '<div class="empty">No hay deudas activas</div>'; return; }
-
-    // UNIFICAR: Agrupar deudas por cliente
-    var deudasPorCliente = {};
-    for (var i = 0; i < deudas.length; i++) {
-        var d = deudas[i];
-        if (!deudasPorCliente[d.clienteId]) {
-            deudasPorCliente[d.clienteId] = {
-                clienteId: d.clienteId,
-                clienteNombre: d.clienteNombre,
-                deudas: [],
-                totalPendiente: 0,
-                totalCuotas: 0,
-                cuotasPagadas: 0,
-                proxVencimiento: null,
-                vencida: false
-            };
-        }
-        deudasPorCliente[d.clienteId].deudas.push(d);
-        deudasPorCliente[d.clienteId].totalPendiente += (d.saldoPendiente || 0);
-        deudasPorCliente[d.clienteId].totalCuotas += d.numCuotasTotal;
-        deudasPorCliente[d.clienteId].cuotasPagadas += (d.cuotasPagadas || 0);
-        // La fecha de vencimiento más cercana
-        if (d.proxVencimiento) {
-            var venc = new Date(d.proxVencimiento);
-            var actual = deudasPorCliente[d.clienteId].proxVencimiento ? new Date(deudasPorCliente[d.clienteId].proxVencimiento) : null;
-            if (!actual || venc < actual) {
-                deudasPorCliente[d.clienteId].proxVencimiento = d.proxVencimiento;
-            }
-        }
-    }
-
-    // Verificar vencimiento
-    var hoy = new Date(); hoy.setHours(0,0,0,0);
-    var clientesArray = [];
-    for (var cid in deudasPorCliente) {
-        var dc = deudasPorCliente[cid];
-        if (dc.proxVencimiento) {
-            var venc = new Date(dc.proxVencimiento); venc.setHours(0,0,0,0);
-            dc.vencida = venc <= hoy;
-        }
-        clientesArray.push(dc);
-    }
-
-    // Ordenar por vencimiento más cercano (vencidas primero)
-    clientesArray.sort(function(a, b) {
-        if (a.vencida && !b.vencida) return -1;
-        if (!a.vencida && b.vencida) return 1;
-        var da = a.proxVencimiento ? new Date(a.proxVencimiento) : new Date('2099-01-01');
-        var db = b.proxVencimiento ? new Date(b.proxVencimiento) : new Date('2099-01-01');
-        return da - db;
-    });
-
-    container.innerHTML = clientesArray.map(function(dc) {
-        var numDeudas = dc.deudas.length;
-        return '<div class="deuda-item ' + (dc.vencida ? 'vencida' : '') + '" data-action="ver-cliente-deudas" data-id="' + escapeHtml(dc.clienteId) + '">' +
-            '<div class="deuda-info"><b>' + escapeHtml(dc.clienteNombre) + '</b>' +
-            ' | Deudas: ' + numDeudas +
-            ' | Total pendiente: ' + formatMoney(dc.totalPendiente) +
-            ' | Cuotas: ' + dc.cuotasPagadas + '/' + dc.totalCuotas +
-            ' | Prox venc: ' + formatDate(dc.proxVencimiento) + '</div>' +
-            '<div class="cliente-arrow">›</div></div>';
+    container.innerHTML = deudas.map(function(d) {
+        var hoy = new Date(); hoy.setHours(0,0,0,0);
+        var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
+        var vencida = venc && venc <= hoy;
+        return '<div class="deuda-item ' + (vencida ? 'vencida' : '') + '" data-action="ver-deuda" data-id="' + escapeHtml(d.id) + '">' +
+            '<div class="deuda-info"><b>' + escapeHtml(d.clienteNombre) + '</b> Total: ' + formatMoney(d.total) + ' | Pendiente: ' + formatMoney(d.saldoPendiente) + ' | Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
+            '<div class="deuda-cuotas">' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + '</div></div>';
     }).join('');
 }
 
@@ -1456,9 +1385,6 @@ function setupEventDelegation() {
                         return;
                     case 'ver-deuda':
                         if (id) { e.stopPropagation(); verDetalleDeuda(id); }
-                        return;
-                    case 'ver-cliente-deudas':
-                        if (id) { e.stopPropagation(); verDeudasCliente(id); }
                         return;
                 }
             }
