@@ -1,6 +1,6 @@
 /* ============================================================
-   POS DULCES AROMAS - CSS ELEGANTE v2026.05.11
-   Transparencias sutiles, márgenes limpios, estética joven
+   POS DULCES AROMAS - SUPER ESTILO v2026.05.15-FINAL
+   Solo CSS mejorado. Nada mas cambia.
    ============================================================ */
 
 :root {
@@ -38,9 +38,10 @@ html, body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 .app.active { display: flex; }
 
 /* ============================================================
-   HEADER - Glassmorphism
+   HEADER - Glassmorphism + Colibri
    ============================================================ */
-.header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: linear-gradient(135deg, rgba(0,180,216,0.9) 0%, rgba(32,178,170,0.85) 100%); color: var(--blanco); box-shadow: var(--sombra-lg); flex-shrink: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.2); }
+.header { display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: linear-gradient(135deg, rgba(0,180,216,0.9) 0%, rgba(32,178,170,0.85) 100%); color: var(--blanco); box-shadow: var(--sombra-lg); flex-shrink: 0; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.2); position: relative; overflow: hidden; }
+.header::before { content: '🐦'; position: absolute; right: -10px; top: -10px; font-size: 60px; opacity: 0.08; transform: rotate(-15deg); }
 .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 .header-date { font-size: 13px; opacity: 0.9; font-weight: 500; }
 
@@ -53,17 +54,20 @@ html, body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ============================================================
-   CARDS - Glass effect
+   CARDS - Glass effect + glow
    ============================================================ */
-.card { background: var(--blanco-glass); border-radius: var(--radio); padding: 20px; margin-bottom: 16px; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.card { background: var(--blanco-glass); border-radius: var(--radio); padding: 20px; margin-bottom: 16px; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); position: relative; overflow: hidden; transition: all 0.3s ease; }
+.card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--turquesa), var(--azul-verdoso), var(--rosa)); opacity: 0.6; }
+.card:hover { box-shadow: 0 8px 32px rgba(0,180,216,0.12); transform: translateY(-1px); }
 .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--negro); }
 .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 14px; color: var(--negro); }
 
 /* ============================================================
-   STATS - Dashboard
+   STATS - Dashboard super
    ============================================================ */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.stat-card { background: linear-gradient(135deg, var(--blanco) 0%, var(--turquesa-light) 100%); border-radius: var(--radio); padding: 20px; text-align: center; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(6px); }
+.stat-card { background: linear-gradient(135deg, var(--blanco) 0%, var(--turquesa-light) 100%); border-radius: var(--radio); padding: 20px; text-align: center; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(6px); position: relative; overflow: hidden; }
+.stat-card::before { content: ''; position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; border-radius: 50%; background: var(--turquesa-glass); opacity: 0.5; }
 .stat-card:active { transform: scale(0.96); }
 .stat-card:hover { box-shadow: var(--sombra-hover); transform: translateY(-2px); }
 .stat-value { font-size: 26px; font-weight: 800; color: var(--turquesa); letter-spacing: -1px; }
@@ -71,15 +75,17 @@ html, body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
 .stat-label { font-size: 12px; color: var(--gris); margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ============================================================
-   BOTONES
+   BOTONES - Super glow
    ============================================================ */
-.btn { background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); border: none; padding: 14px 24px; border-radius: var(--radio-sm); font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,180,216,0.3); letter-spacing: 0.3px; }
+.btn { background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); border: none; padding: 14px 24px; border-radius: var(--radio-sm); font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 10px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(0,180,216,0.3); letter-spacing: 0.3px; position: relative; overflow: hidden; }
+.btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+.btn:hover::after { left: 100%; }
 .btn:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(0,180,216,0.2); }
 .btn-secondary { background: linear-gradient(135deg, var(--rosa-suave) 0%, rgba(255,240,245,0.8) 100%); color: var(--negro); border: 1.5px solid var(--rosa); box-shadow: 0 2px 8px rgba(255,182,193,0.2); }
 .btn-danger { background: linear-gradient(135deg, var(--rojo) 0%, #DC2626 100%); }
 
 /* ============================================================
-   INPUTS
+   INPUTS - Focus glow
    ============================================================ */
 input, select { width: 100%; padding: 14px; border: 2px solid var(--gris-borde); border-radius: var(--radio-sm); font-size: 15px; margin-bottom: 14px; outline: none; background: var(--blanco-glass); transition: all 0.3s ease; }
 input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px var(--turquesa-light); background: var(--blanco); }
@@ -88,15 +94,15 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .search-box input { background: var(--blanco-glass); }
 
 /* ============================================================
-   TABS
+   TABS - Super
    ============================================================ */
 .tabs { display: flex; gap: 10px; margin-bottom: 18px; }
-.tab { flex: 1; padding: 12px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio-sm); background: var(--blanco-glass); font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; color: var(--gris); transition: all 0.3s ease; backdrop-filter: blur(4px); }
+.tab { flex: 1; padding: 12px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio-sm); background: var(--blanco-glass); font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; color: var(--gris); transition: all 0.3s ease; backdrop-filter: blur(4px); position: relative; overflow: hidden; }
 .tab.active { background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); border-color: transparent; box-shadow: 0 4px 12px rgba(0,180,216,0.3); }
 .tab:not(.active):hover { background: var(--turquesa-light); border-color: var(--turquesa); color: var(--turquesa-dark); }
 
 /* ============================================================
-   VENTA - Product Cards
+   VENTA - Product Cards super
    ============================================================ */
 .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 @media (min-width: 768px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); } }
@@ -115,7 +121,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .v-stock { font-size: 11px; color: var(--gris); margin-top: 6px; font-weight: 600; background: var(--gris-claro); padding: 3px 10px; border-radius: 20px; display: inline-block; }
 
 /* ============================================================
-   PRODUCTOS - Lista
+   PRODUCTOS - Lista super
    ============================================================ */
 .producto-item { background: var(--blanco-glass); padding: 16px; border-radius: var(--radio-sm); margin-bottom: 10px; display: flex; align-items: center; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); transition: all 0.3s ease; backdrop-filter: blur(4px); }
 .producto-item:active { transform: scale(0.98); box-shadow: var(--sombra-lg); }
@@ -203,9 +209,10 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .cat-stock { font-size: 11px; color: var(--gris); margin-top: 8px; font-weight: 600; background: var(--gris-claro); padding: 4px 12px; border-radius: 20px; display: inline-block; }
 
 /* ============================================================
-   CARRITO
+   CARRITO - Super
    ============================================================ */
-.cart-fab { position: fixed; bottom: 90px; right: 20px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,180,216,0.4); z-index: 150; font-weight: 800; transition: all 0.3s ease; border: 3px solid rgba(255,255,255,0.3); }
+.cart-fab { position: fixed; bottom: 90px; right: 20px; width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); display: flex; align-items: center; justify-content: center; font-size: 22px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,180,216,0.4); z-index: 150; font-weight: 800; transition: all 0.3s ease; border: 3px solid rgba(255,255,255,0.3); animation: pulseCart 2s ease-in-out infinite; }
+@keyframes pulseCart { 0%, 100% { box-shadow: 0 6px 20px rgba(0,180,216,0.4); } 50% { box-shadow: 0 6px 30px rgba(0,180,216,0.6); } }
 .cart-fab:active { transform: scale(0.9); }
 #cart-count { position: absolute; top: -6px; right: -6px; background: var(--rojo); color: white; width: 26px; height: 26px; border-radius: 50%; font-size: 13px; display: flex; align-items: center; justify-content: center; font-weight: 800; box-shadow: 0 2px 8px rgba(239,68,68,0.4); border: 2px solid var(--blanco); }
 
@@ -225,7 +232,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .cart-item-total { font-size: 16px; font-weight: 800; color: var(--turquesa-dark); min-width: 90px; text-align: right; }
 
 /* ============================================================
-   MODALES - Glassmorphism
+   MODALES - Glassmorphism super
    ============================================================ */
 .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 300; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
 .modal.active { display: flex; }
@@ -245,7 +252,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .pago-item { background: linear-gradient(135deg, var(--gris-claro) 0%, var(--blanco) 100%); padding: 14px; border-radius: var(--radio-sm); margin-bottom: 10px; font-size: 14px; border: 1px solid var(--gris-borde); border-left: 3px solid var(--turquesa); }
 
 /* ============================================================
-   NAVEGACION - Glassmorphism
+   NAVEGACION - Glassmorphism super + glow activo
    ============================================================ */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--blanco-glass); display: flex; justify-content: space-around; padding: 10px 0 16px; border-top: 1px solid rgba(229,231,235,0.6); z-index: 100; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 -4px 20px rgba(0,0,0,0.06); }
 .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; cursor: pointer; padding: 6px; color: var(--gris); font-size: 11px; font-weight: 700; transition: all 0.3s ease; position: relative; }
@@ -257,7 +264,7 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .nav-btn.active::after { width: 24px; }
 
 /* ============================================================
-   TOAST
+   TOAST - Super
    ============================================================ */
 .toast { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-100px); background: linear-gradient(135deg, var(--negro) 0%, #2D2D44 100%); color: var(--blanco); padding: 14px 28px; border-radius: var(--radio-sm); font-size: 14px; z-index: 400; display: none; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
 .toast.show { display: block; animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
