@@ -616,7 +616,7 @@ function renderProductos() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="p-foto">' : 
-            '<div class="p-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar foto</div>';
+            '<div class="p-foto-placeholder">🌸</div>';
         return '<div class="producto-item">' +
             '<div class="p-left">' + fotoHtml + '</div>' +
             '<div class="p-info"><b>' + escapeHtml(p.nombre) + '</b><br>' + escapeHtml(p.marca || 'Sin marca') + ' | Stock: ' + p.stock + ' | ' + escapeHtml(p.categoria) + '</div>' +
@@ -637,7 +637,7 @@ function filtrarProductos() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="p-foto">' : 
-            '<div class="p-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar foto</div>';
+            '<div class="p-foto-placeholder">🌸</div>';
         return '<div class="producto-item">' +
             '<div class="p-left">' + fotoHtml + '</div>' +
             '<div class="p-info"><b>' + escapeHtml(p.nombre) + '</b><br>' + escapeHtml(p.marca || 'Sin marca') + ' | Stock: ' + p.stock + ' | ' + escapeHtml(p.categoria) + '</div>' +
@@ -770,7 +770,7 @@ function renderInventario() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="inv-foto">' : 
-            '<div class="inv-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar</div>';
+            '<div class="inv-foto-placeholder">🌸</div>';
         return '<div class="inv-item">' +
             '<div class="inv-left">' + fotoHtml + '</div>' +
             '<div class="inv-info"><b>' + escapeHtml(p.nombre) + '</b> Stock: ' + p.stock + '</div>' +
@@ -788,7 +788,7 @@ function filtrarInventario() {
     if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos</div>'; return; }
     container.innerHTML = productos.map(function(p) {
         var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="inv-foto">' : 
-            '<div class="inv-foto-placeholder" data-action="upload-foto" data-id="' + escapeHtml(p.id) + '">🌸<br>Tocar</div>';
+            '<div class="inv-foto-placeholder">🌸</div>';
         return '<div class="inv-item">' +
             '<div class="inv-left">' + fotoHtml + '</div>' +
             '<div class="inv-info"><b>' + escapeHtml(p.nombre) + '</b> Stock: ' + p.stock + '</div>' +
