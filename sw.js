@@ -1,4 +1,4 @@
-const CACHE_NAME = 'da-pos-v2026.05.17.3';
+const CACHE_NAME = 'da-pos-v2026-05-11';
 const STATIC_ASSETS = [
   './',
   './index.html',

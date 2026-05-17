@@ -47,48 +47,6 @@ function showToast(msg) {
 }
 
 // FIX #1: Escape HTML completo con backticks y slash
-// ============================================================
-// NOTAS OLFATIVAS - Catálogo
-// ============================================================
-var NOTAS_CATEGORIA = {
-    'caballero': 'Amaderado, aromático, cítrico fresco',
-    'dama': 'Floral, frutal, oriental o gourmand',
-    'niños': 'Suave, dulce, fresco y divertido'
-};
-
-var NOTAS_ESPECIALES = {
-    'da0139': { notas: 'Rosa, albaricoque, vainilla, sándalo, ámbar', mensaje: 'Tesoro emocional, amor que perdura en el recuerdo.' },
-    'da0208': { notas: 'Orquídea, jazmín, rosa, pachulí, vainilla', mensaje: 'Explosión floral para quienes viven con pasión.' }
-};
-
-var MENSAJE_POETICO = 'Para quienes entienden que el perfume es memoria antes que fragancia.';
-var FIRMA_DULCES_AROMAS = '— Dulces Aromas';
-
-function getNotasProducto(producto) {
-    if (!producto || !producto.id) return { notas: 'Fragancia exclusiva', mensaje: '' };
-    var especial = NOTAS_ESPECIALES[producto.id];
-    if (especial) return especial;
-    var cat = producto.categoria || 'dama';
-    return { notas: NOTAS_CATEGORIA[cat] || 'Fragancia exclusiva', mensaje: '' };
-}
-
-function getInicialesNombre(nombre) {
-    if (!nombre) return 'DA';
-    var palabras = nombre.trim().split(/\s+/);
-    if (palabras.length >= 2) {
-        var primera = palabras[0].charAt(0);
-        var segunda = '';
-        for (var i = 1; i < palabras.length; i++) {
-            if (palabras[i].length > 2 && !/^(de|del|la|el|en|y|e|para|por|con|sin)$/i.test(palabras[i])) {
-                segunda = palabras[i].charAt(0); break;
-            }
-        }
-        if (!segunda) segunda = palabras[1].charAt(0);
-        return (primera + segunda).toUpperCase();
-    }
-    return nombre.substring(0, 2).toUpperCase();
-}
-
 function escapeHtml(text) {
     if (text === null || text === undefined) return '';
     return String(text)
@@ -1229,12 +1187,11 @@ function renderCatalogo() {
     for (var p = 0; p < catalogoPaginas.length; p++) {
         html += '<div class="product-grid catalogo-page" data-page="' + p + '">' +
             catalogoPaginas[p].map(function(prod) {
-                var notasData = getNotasProducto(prod);
-                var fotoHtml = prod.foto ? '<img src="' + escapeHtml(prod.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder"><span class="cat-iniciales">' + getInicialesNombre(prod.nombre) + '</span></div>';
-                return '<div class="catalogo-card" data-action="ver-catalogo-producto" data-id="' + escapeHtml(prod.id) + '">' + fotoHtml +
+                var fotoHtml = prod.foto ? '<img src="' + escapeHtml(prod.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder">🌸</div>';
+                return '<div class="catalogo-card">' + fotoHtml +
                     '<div class="cat-nombre">' + escapeHtml(prod.nombre) + '</div>' +
                     '<div class="cat-precio">' + formatMoney(prod.precio) + '</div>' +
-                    '<div class="cat-notas">' + escapeHtml(notasData.notas) + '</div></div>';
+                    '<div class="cat-stock">Stock: ' + prod.stock + '</div></div>';
             }).join('') + '</div>';
     }
     wrapper.innerHTML = html;
@@ -1464,44 +1421,6 @@ function importarBackup(input) {
 // ============================================================
 // EVENT DELEGATION
 // ============================================================
-// ============================================================
-// CATALOGO MODAL - Detalle de producto
-// ============================================================
-function verCatalogoProducto(id) {
-    var productos = getProductos();
-    var p = null;
-    for (var i = 0; i < productos.length; i++) { if (productos[i].id === id) { p = productos[i]; break; } }
-    if (!p) { showToast('Producto no disponible'); return; }
-
-    var notasData = getNotasProducto(p);
-    var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="cat-modal-foto">' : 
-        '<div class="cat-modal-foto-placeholder"><span class="cat-modal-iniciales">' + getInicialesNombre(p.nombre) + '</span></div>';
-
-    var html = '<div class="cat-modal-content">' +
-        fotoHtml +
-        '<div class="cat-modal-nombre">' + escapeHtml(p.nombre) + '</div>' +
-        '<div class="cat-modal-precio">' + formatMoney(p.precio) + '</div>' +
-        '<div class="cat-modal-notas"><b>Notas olfativas:</b><br>' + escapeHtml(notasData.notas) + '</div>';
-
-    if (notasData.mensaje) {
-        html += '<div class="cat-modal-mensaje-especial">' + escapeHtml(notasData.mensaje) + '</div>';
-    }
-
-    html += '<div class="cat-modal-poetico">' + escapeHtml(MENSAJE_POETICO) + '</div>' +
-        '<div class="cat-modal-firma">' + escapeHtml(FIRMA_DULCES_AROMAS) + '</div>' +
-        '<button class="btn" style="margin-top:20px;" onclick="agregarAlCarroDesdeCatalogo('' + escapeHtml(p.id) + '')">🛒 Agregar a Venta</button>' +
-        '</div>';
-
-    var detalleContent = document.getElementById('detalle-content');
-    if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
-}
-
-function agregarAlCarroDesdeCatalogo(id) {
-    closeModal('modal-detalle');
-    agregarAlCarro(id);
-    showToast('Producto agregado al carro');
-}
-
 function setupEventDelegation() {
     document.addEventListener('click', function(e) {
         var target = e.target;
@@ -1540,9 +1459,6 @@ function setupEventDelegation() {
                         return;
                     case 'ver-cliente-deudas':
                         if (id) { e.stopPropagation(); verDeudasCliente(id); }
-                        return;
-                    case 'ver-catalogo-producto':
-                        if (id) { e.stopPropagation(); verCatalogoProducto(id); }
                         return;
                 }
             }
