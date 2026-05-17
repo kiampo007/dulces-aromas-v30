@@ -1,6 +1,6 @@
 // ============================================================
-// POS DULCES AROMAS - v2026.05.17-catalogo
-// Catálogo con notas olfativas, modal interactivo, protecciones
+// POS DULCES AROMAS - v2026.05.11-corregido
+// 15 fixes criticos aplicados - NO MODIFICAR ESTRUCTURA VISUAL
 // ============================================================
 
 function formatMoney(amount) {
@@ -28,12 +28,14 @@ function now() {
            String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0');
 }
 
+// FIX #18: ID unico con counter para evitar colisiones en milisegundos
 var idCounter = 0;
 function generateId() {
     idCounter = (idCounter + 1) % 10000;
     return Date.now().toString(36) + idCounter.toString(36).padStart(4,'0') + Math.random().toString(36).substr(2, 5);
 }
 
+// FIX #13: Toast con clearTimeout para evitar acumulacion
 var toastTimeout = null;
 function showToast(msg) {
     var t = document.getElementById('toast');
@@ -44,6 +46,7 @@ function showToast(msg) {
     toastTimeout = setTimeout(function() { t.classList.remove('show'); }, 3000);
 }
 
+// FIX #1: Escape HTML completo con backticks y slash
 function escapeHtml(text) {
     if (text === null || text === undefined) return '';
     return String(text)
@@ -66,6 +69,7 @@ function normalizarPrecio(valor) {
     return 0;
 }
 
+// FIX #15: Manejo de errores mejorado en redimensionarImagen
 function redimensionarImagen(base64, maxWidth, maxHeight, callback) {
     var img = new Image();
     img.onload = function() {
@@ -83,80 +87,6 @@ function redimensionarImagen(base64, maxWidth, maxHeight, callback) {
         callback(null); 
     };
     img.src = base64;
-}
-
-// ============================================================
-// NOTAS OLFATIVAS - Catálogo
-// ============================================================
-var NOTAS_CATEGORIA = {
-    'caballero': 'Amaderado, aromático, cítrico fresco',
-    'dama': 'Floral, frutal, oriental o gourmand',
-    'niños': 'Suave, dulce, fresco y divertido'
-};
-
-var NOTAS_ESPECIALES = {
-    'da0001': { notas: 'Lavanda, cítricos, madera de cedro, almizcle', mensaje: 'Clásico atemporal para el caballero seguro de sí mismo.' },
-    'da0005': { notas: 'Cítricos, especias, madera, ámbar', mensaje: 'Versátil y moderno, ideal para el día a día.' },
-    'da0028': { notas: 'Cítricos, pimienta, madera de sándalo, almizcle', mensaje: 'Urbano y sofisticado, la esencia de Nueva York.' },
-    'da0032': { notas: 'Pimienta negra, cacao, cuero, vetiver', mensaje: 'Intenso y seductor, para quienes dejan huella.' },
-    'da0056': { notas: 'Limón, salvia, cacao, vainilla, madera', mensaje: 'Rebeldía dulce, equilibrio perfecto entre fuerza y elegancia.' },
-    'da0058': { notas: 'Grapefruit, laurel, ámbar, guaiac', mensaje: 'Victoria en cada gota, imposible de ignorar.' },
-    'da0072': { notas: 'Rosa, azafrán, incienso, ámbar, pachulí', mensaje: 'Oriente en su máxima expresión, misterio y seducción.' },
-    'da0074': { notas: 'Heliotropo, vainilla, caramelo, pachulí', mensaje: 'Angelicalmente adictivo, un clásico que perdura.' },
-    'da0075': { notas: 'Frambuesa, pera, rosa, vainilla, almizcle', mensaje: 'Juventud y dulzura en perfecta armonía.' },
-    'da0081': { notas: 'Cítricos, flor de tiaré, coco, vainilla', mensaje: 'Escape tropical, verano eterno en la piel.' },
-    'da0093': { notas: 'Mandarina, peonía, vainilla, sándalo', mensaje: 'Glamour accesible, brillo sin esfuerzo.' },
-    'da0104': { notas: 'Cereza, rosa, peonía, ámbar, almizcle', mensaje: 'Euphoria en estado puro, celebración constante.' },
-    'da0106': { notas: 'Mandarina, flor de azahar, vainilla, sándalo', mensaje: 'Sexy sin complejos, para la mujer que lo sabe.' },
-    'da0111': { notas: 'Lilas, lirio, ylang-ylang, clavel, ámbar', mensaje: 'La Quinta Avenida en una botella, sofisticación neoyorquina.' },
-    'da0129': { notas: 'Naranja, jazmín, iris, ámbar, almizcle', mensaje: 'Glow natural, belleza que irradia desde dentro.' },
-    'da0136': { notas: 'Pera, peonía, jazmín, ambroxan, cedro', mensaje: 'Mundo en equilibrio, frescura con carácter.' },
-    'da0138': { notas: 'Grosella negra, pera, iris, jazmín, praliné', mensaje: 'La vida es bella, y esta fragancia lo confirma.' },
-    'da0139': { notas: 'Rosa, albaricoque, vainilla, sándalo, ámbar', mensaje: 'Tesoro emocional, amor que perdura en el recuerdo.' },
-    'da0145': { notas: 'Caramelo, frutos rojos, pachulí, almizcle', mensaje: 'Dulzura irresistible, la tentación hecha perfume.' },
-    'da0146': { notas: 'Heliotropo, vainilla, coco, sándalo', mensaje: 'Yara: la fragancia que se convierte en firma personal.' },
-    'da0152': { notas: 'Rosa, cítricos, ámbar, almizcle', mensaje: 'Rosas en su máxima expresión, lujo sin pretensiones.' },
-    'da0161': { notas: 'Cítricos, flor de azahar, madera, almizcle', mensaje: 'Luna misteriosa, romanticismo nocturno.' },
-    'da0166': { notas: 'Jazmín, ron, vainilla, miel, pachulí', mensaje: 'Realeza moderna, poder femenino sin disculpas.' },
-    'da0180': { notas: 'Manzana verde, magnolia, madera, almizcle', mensaje: 'La mujer Ralph Lauren: clásica, segura, inolvidable.' },
-    'da0192': { notas: 'Limón, rosa, peonía, almizcle, vainilla', mensaje: 'Roma en amarillo, pasión italiana contemporánea.' },
-    'da0193': { notas: 'Trufa, flor de azahar, vainilla, madera', mensaje: 'Valentina: feminidad en estado puro, delicada y poderosa.' },
-    'da0201': { notas: 'Frutas tropicales, flor de tiaré, vainilla', mensaje: 'Fiesta eterna, la vida es una celebración.' },
-    'da0204': { notas: 'Pera, jazmín, gardenia, vainilla, almizcle', mensaje: 'Seducción en negro, misterio que cautiva.' },
-    'da0208': { notas: 'Orquídea, jazmín, rosa, pachulí, vainilla', mensaje: 'Explosión floral para quienes viven con pasión.' },
-    'da0224': { notas: 'Cítricos, frutas, almizcle suave', mensaje: 'Diversión y frescura, la infancia en una fragancia.' }
-};
-
-var MENSAJE_POETICO = 'Para quienes entienden que el perfume es memoria antes que fragancia.';
-var FIRMA_DULCES_AROMAS = '— Dulces Aromas';
-
-function getNotasProducto(producto) {
-    if (!producto || !producto.id) return { notas: 'Fragancia exclusiva', mensaje: '' };
-    var especial = NOTAS_ESPECIALES[producto.id];
-    if (especial) return especial;
-    var cat = producto.categoria || 'dama';
-    return {
-        notas: NOTAS_CATEGORIA[cat] || 'Fragancia exclusiva',
-        mensaje: ''
-    };
-}
-
-function getInicialesNombre(nombre) {
-    if (!nombre) return 'DA';
-    var palabras = nombre.trim().split(/\s+/);
-    if (palabras.length >= 2) {
-        var primera = palabras[0].charAt(0);
-        var segunda = '';
-        for (var i = 1; i < palabras.length; i++) {
-            if (palabras[i].length > 2 && !/^\b(de|del|la|el|en|y|e|para|por|con|sin)\b$/i.test(palabras[i])) {
-                segunda = palabras[i].charAt(0);
-                break;
-            }
-        }
-        if (!segunda) segunda = palabras[1].charAt(0);
-        return (primera + segunda).toUpperCase();
-    }
-    return nombre.substring(0, 2).toUpperCase();
 }
 
 // ============================================================
@@ -194,6 +124,7 @@ function guardarTodo(data) {
     }
 }
 
+// FIX #5: Carga atomica + limpieza de keys antiguas migradas
 function cargarTodo() {
     try {
         var todo = localStorage.getItem('da_todo');
@@ -207,6 +138,7 @@ function cargarTodo() {
                 movimientos: parsed.movimientos || []
             };
         }
+        // Migracion desde formato antiguo
         var data = {
             productos: Store.get('productos') || [],
             ventas: Store.get('ventas') || [],
@@ -214,6 +146,7 @@ function cargarTodo() {
             deudas: Store.get('deudas') || [],
             movimientos: Store.get('movimientos') || []
         };
+        // Guardar en nuevo formato y limpiar viejo
         if (guardarTodo(data)) {
             localStorage.removeItem('da_productos');
             localStorage.removeItem('da_ventas');
@@ -241,6 +174,7 @@ var editingDeudaId = null;
 var fotoProductoBase64 = null;
 var fotoProductoEditando = null;
 
+// FIX #14: Validar carrito al restaurar (productos pueden haber cambiado)
 function restaurarCarrito() {
     try {
         var guardado = sessionStorage.getItem('da_cart');
@@ -294,27 +228,126 @@ function navigateTo(module) {
 }
 
 function updateDashboard() {
-    var hoy = new Date(); hoy.setHours(0,0,0,0);
-    var ventas = getVentas().filter(function(v) {
+    var ahora = new Date();
+    var hoy = new Date(ahora); hoy.setHours(0,0,0,0);
+    var inicioSemana = new Date(hoy); inicioSemana.setDate(hoy.getDate() - hoy.getDay());
+    var inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1);
+
+    var ventas = getVentas();
+    var productos = getProductos();
+    var deudas = getDeudas();
+    var clientes = getClientes();
+
+    // Ventas por periodo
+    var ventasHoy = ventas.filter(function(v) {
         var vFecha = new Date(v.fecha); vFecha.setHours(0,0,0,0);
         return vFecha.getTime() === hoy.getTime();
     });
-    var totalHoy = ventas.reduce(function(s, v) { return s + (v.total || 0); }, 0);
-    var stockBajo = getProductos().filter(function(p) { return p.stock <= (p.stockMinimo || 3); }).length;
-    var deudasVencidas = getDeudas().filter(function(d) {
+    var totalHoy = ventasHoy.reduce(function(s, v) { return s + (v.total || 0); }, 0);
+
+    var ventasSemana = ventas.filter(function(v) {
+        var vFecha = new Date(v.fecha); vFecha.setHours(0,0,0,0);
+        return vFecha >= inicioSemana;
+    });
+    var totalSemana = ventasSemana.reduce(function(s, v) { return s + (v.total || 0); }, 0);
+
+    var ventasMes = ventas.filter(function(v) {
+        var vFecha = new Date(v.fecha); vFecha.setHours(0,0,0,0);
+        return vFecha >= inicioMes;
+    });
+    var totalMes = ventasMes.reduce(function(s, v) { return s + (v.total || 0); }, 0);
+
+    var totalHistorico = ventas.reduce(function(s, v) { return s + (v.total || 0); }, 0);
+
+    // Alertas
+    var stockBajo = productos.filter(function(p) { return p.stock <= (p.stockMinimo || 3); }).length;
+    var deudasVencidas = deudas.filter(function(d) {
         if (d.estado !== 'activa') return false;
         if (!d.proxVencimiento) return false;
         var proxVenc = new Date(d.proxVencimiento); var hoyFecha = new Date(); hoyFecha.setHours(0,0,0,0);
         return proxVenc <= hoyFecha;
     }).length;
-    var dashVentas = document.getElementById('dash-ventas');
-    var dashStock = document.getElementById('dash-stock');
-    var dashDeudas = document.getElementById('dash-deudas');
+    var deudaTotal = deudas.filter(function(d) { return d.estado === 'activa'; }).reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
+
+    // Update DOM
+    var elHoy = document.getElementById('dash-ventas-hoy');
+    var elSemana = document.getElementById('dash-ventas-semana');
+    var elMes = document.getElementById('dash-ventas-mes');
+    var elTotal = document.getElementById('dash-ventas-total');
+    var elStock = document.getElementById('dash-stock-bajo');
+    var elDeudasVenc = document.getElementById('dash-deudas-vencidas');
+    var elDeudaTotal = document.getElementById('dash-deudas-total');
+    var elClientes = document.getElementById('dash-clientes-total');
     var headerDate = document.getElementById('header-date');
-    if (dashVentas) dashVentas.textContent = formatMoney(totalHoy);
-    if (dashStock) dashStock.textContent = stockBajo;
-    if (dashDeudas) dashDeudas.textContent = deudasVencidas;
-    if (headerDate) headerDate.textContent = new Date().toLocaleDateString('es-CL', {weekday:'long', day:'numeric', month:'long'});
+
+    if (elHoy) elHoy.textContent = formatMoney(totalHoy);
+    if (elSemana) elSemana.textContent = formatMoney(totalSemana);
+    if (elMes) elMes.textContent = formatMoney(totalMes);
+    if (elTotal) elTotal.textContent = formatMoney(totalHistorico);
+    if (elStock) elStock.textContent = stockBajo;
+    if (elDeudasVenc) elDeudasVenc.textContent = deudasVencidas;
+    if (elDeudaTotal) elDeudaTotal.textContent = formatMoney(deudaTotal);
+    if (elClientes) elClientes.textContent = clientes.length;
+    if (headerDate) headerDate.textContent = ahora.toLocaleDateString('es-CL', {weekday:'long', day:'numeric', month:'long'});
+
+    // Top 5 productos vendidos
+    renderDashTopProductos(ventas);
+    // Ultimas 5 ventas
+    renderDashUltimasVentas(ventas, clientes);
+}
+
+function renderDashTopProductos(ventas) {
+    var container = document.getElementById('dash-top-productos');
+    if (!container) return;
+    if (ventas.length === 0) { container.innerHTML = '<div class="empty">Sin ventas registradas</div>'; return; }
+
+    var conteo = {};
+    for (var i = 0; i < ventas.length; i++) {
+        var prods = ventas[i].productos || [];
+        for (var j = 0; j < prods.length; j++) {
+            var pid = prods[j].id || prods[j].nombre;
+            var nombre = prods[j].nombre;
+            if (!conteo[pid]) conteo[pid] = {nombre: nombre, qty: 0, total: 0};
+            conteo[pid].qty += (prods[j].qty || 1);
+            conteo[pid].total += ((prods[j].precio || 0) * (prods[j].qty || 1));
+        }
+    }
+    var ordenados = Object.keys(conteo).map(function(k) { return conteo[k]; });
+    ordenados.sort(function(a, b) { return b.qty - a.qty; });
+    var top5 = ordenados.slice(0, 5);
+
+    if (top5.length === 0) { container.innerHTML = '<div class="empty">Sin datos</div>'; return; }
+
+    var maxQty = top5[0].qty;
+    container.innerHTML = top5.map(function(p, idx) {
+        var pct = Math.round((p.qty / maxQty) * 100);
+        return '<div class="dash-top-item">' +
+            '<div class="dash-top-rank">' + (idx + 1) + '</div>' +
+            '<div class="dash-top-info">' +
+            '<b>' + escapeHtml(p.nombre) + '</b>' +
+            '<div class="dash-top-bar"><div class="dash-top-fill" style="width:' + pct + '%"></div></div>' +
+            '<span>' + p.qty + ' vendidos · ' + formatMoney(p.total) + '</span></div></div>';
+    }).join('');
+}
+
+function renderDashUltimasVentas(ventas, clientes) {
+    var container = document.getElementById('dash-ultimas-ventas');
+    if (!container) return;
+    if (ventas.length === 0) { container.innerHTML = '<div class="empty">Sin ventas recientes</div>'; return; }
+
+    var ultimas = ventas.slice(0, 5);
+    container.innerHTML = ultimas.map(function(v) {
+        var metodoLabel = {efectivo: '💵', transferencia: '📲', tarjeta: '💳', credito: '💳 Fiado'}[v.metodo] || '💵';
+        var clienteNombre = '';
+        if (v.clienteId) {
+            for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === v.clienteId) { clienteNombre = clientes[i].nombre; break; } }
+        }
+        return '<div class="dash-venta-mini" data-action="ver-venta" data-id="' + escapeHtml(v.id) + '">' +
+            '<div class="dash-venta-info">' +
+            '<b>' + metodoLabel + ' ' + (v.productos ? v.productos.length + ' productos' : 'Venta') + '</b>' +
+            '<span>' + formatDateTime(v.fecha) + (clienteNombre ? ' · ' + escapeHtml(clienteNombre) : '') + '</span></div>' +
+            '<div class="dash-venta-total">' + formatMoney(v.total) + '</div></div>';
+    }).join('');
 }
 
 // ============================================================
@@ -351,6 +384,7 @@ function buscarProducto() {
     }).join('');
 }
 
+// FIX #6: filtrarCat usa data-cat en vez de textContent
 function filtrarCat(cat) {
     var tabs = document.querySelectorAll('#mod-venta .tab');
     for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
@@ -439,7 +473,7 @@ function toggleCart() {
 }
 
 // ============================================================
-// PAGAR
+// PAGAR - FIX #3: Transaccion atomica con re-verificacion
 // ============================================================
 function pagar(metodo) {
     if (cart.length === 0) { showToast('Carro vacio'); return; }
@@ -449,6 +483,7 @@ function pagar(metodo) {
     var ventas = data.ventas;
     var movimientos = data.movimientos;
 
+    // FIX #3: Re-verificar stock DENTRO de la transaccion
     for (var i = 0; i < cart.length; i++) {
         var p = null;
         for (var j = 0; j < productos.length; j++) { if (productos[j].id === cart[i].id) { p = productos[j]; break; } }
@@ -502,6 +537,7 @@ function pagar(metodo) {
     }
 }
 
+// FIX #4: Cuotas con vencimientos correctos (dia de compra, no siempre dia 1)
 function confirmarCredito() {
     var clienteId = document.getElementById('credito-cliente').value;
     if (!clienteId) { showToast('Selecciona un cliente'); return; }
@@ -518,6 +554,7 @@ function confirmarCredito() {
     var cliente = null;
     for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === clienteId) { cliente = clientes[i]; break; } }
 
+    // FIX #3: Re-verificar stock
     for (var i = 0; i < cart.length; i++) {
         var p = null;
         for (var j = 0; j < productos.length; j++) { if (productos[j].id === cart[i].id) { p = productos[j]; break; } }
@@ -527,11 +564,13 @@ function confirmarCredito() {
     var valorCuotaBase = Math.floor(total / numCuotas);
     var ultimaCuota = Math.max(0, total - (valorCuotaBase * (numCuotas - 1)));
 
+    // FIX #4: Vencimientos respetan dia de compra y manejan overflow de meses
     var hoy = new Date();
     var diaCompra = hoy.getDate();
     var vencimientos = [];
     for (var i = 1; i <= numCuotas; i++) {
         var venc = new Date(hoy.getFullYear(), hoy.getMonth() + i, diaCompra);
+        // Si el dia no existe en ese mes (ej: 31 de febrero), va al ultimo dia del mes
         if (venc.getDate() !== diaCompra) {
             venc = new Date(venc.getFullYear(), venc.getMonth(), 0);
         }
@@ -573,6 +612,7 @@ function confirmarCredito() {
     }
 }
 
+// FIX #11: Manejar carrito vacio en preview de cuotas
 function actualizarCuotaPreview() {
     var total = cart.reduce(function(s, c) { return s + (c.precio * c.qty); }, 0);
     var numCuotas = parseInt(document.getElementById('credito-cuotas').value) || 1;
@@ -612,6 +652,7 @@ function cargarFotoProducto(input) {
     input.value = '';
 }
 
+// FIX #2: Race condition en subir foto - flag de bloqueo + limpieza
 var fotoUploadLock = false;
 function subirFotoProducto(id) {
     if (fotoUploadLock) { showToast('Espera... otra carga en progreso'); return; }
@@ -625,9 +666,10 @@ function subirFotoProducto(id) {
         if (input.parentNode) document.body.removeChild(input);
     };
 
+    // Limpieza si cancela el dialogo (timeout de seguridad)
     var timeoutCancel = setTimeout(function() {
         if (fotoUploadLock) { limpiar(); }
-    }, 120000);
+    }, 120000); // 2 minutos maximo
 
     input.addEventListener('change', function(e) {
         clearTimeout(timeoutCancel);
@@ -742,6 +784,7 @@ function editarProducto(id) {
     showModal('modal-producto');
 }
 
+// FIX #17: Sanitizacion de nombres con trim()
 function guardarProducto() {
     var nombre = document.getElementById('prod-nombre').value.trim();
     var precioInput = document.getElementById('prod-precio').value;
@@ -852,6 +895,7 @@ function filtrarInventario() {
     }).join('');
 }
 
+// FIX #12: switchInvTab usa data-tab en vez de indice
 function switchInvTab(tab) {
     var stockContent = document.getElementById('inv-stock-content');
     var movContent = document.getElementById('inv-mov-content');
@@ -878,11 +922,11 @@ function renderMovimientos() {
 }
 
 // ============================================================
-// VENTAS
+// VENTAS - FIX #7: getClientes fuera del map
 // ============================================================
 function renderVentas() {
     var ventas = getVentas();
-    var clientes = getClientes();
+    var clientes = getClientes(); // FIX #7: Fuera del map
     var container = document.getElementById('ventas-lista');
     if (!container) return;
     if (ventas.length === 0) { container.innerHTML = '<div class="empty">No hay ventas</div>'; return; }
@@ -925,11 +969,12 @@ function verDetalleVenta(id) {
 }
 
 // ============================================================
-// CLIENTES
+// CLIENTES - FIX #8: Pre-calcular deudas fuera del map
 // ============================================================
 function renderClientes() {
     var clientes = getClientes();
     var deudas = getDeudas();
+    // FIX #8: Pre-calcular deuda total por cliente
     var deudaPorCliente = {};
     for (var i = 0; i < deudas.length; i++) {
         if (deudas[i].estado === 'activa') {
@@ -947,6 +992,7 @@ function renderClientes() {
     }).join('');
 }
 
+// FIX #17: Sanitizacion con trim()
 function guardarCliente() {
     var nombreInput = document.getElementById('cli-nombre');
     if (!nombreInput) return;
@@ -970,39 +1016,22 @@ function guardarCliente() {
 
 function verDeudasCliente(clienteId) {
     var data = cargarTodo();
-    var deudas = data.deudas.filter(function(d) { return d.clienteId === clienteId && d.estado === 'activa'; });
+    var deudas = data.deudas.filter(function(d) { return d.clienteId === clienteId; });
     var cliente = null;
     var clientes = data.clientes;
     for (var i = 0; i < clientes.length; i++) { if (clientes[i].id === clienteId) { cliente = clientes[i]; break; } }
-
-    var totalAdeudado = deudas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
-    var totalCuotas = deudas.reduce(function(s, d) { return s + d.numCuotasTotal; }, 0);
-    var cuotasPagadas = deudas.reduce(function(s, d) { return s + (d.cuotasPagadas || 0); }, 0);
-
-    var html = '<h3>Deudas de ' + escapeHtml(cliente ? cliente.nombre : 'Cliente') + '</h3>' +
-        '<div style="background:linear-gradient(135deg, var(--turquesa-light) 0%, var(--azul-verdoso-glass) 100%);padding:16px;border-radius:var(--radio-sm);margin-bottom:16px;border:1px solid var(--gris-borde);">' +
-        '<p style="font-size:16px;font-weight:700;color:var(--negro);">Total adeudado: ' + formatMoney(totalAdeudado) + '</p>' +
-        '<p style="font-size:13px;color:var(--gris);">Cuotas pagadas: ' + cuotasPagadas + '/' + totalCuotas + ' | Deudas activas: ' + deudas.length + '</p></div>';
-
+    var html = '<h3>Deudas de ' + escapeHtml(cliente ? cliente.nombre : 'Cliente') + '</h3>';
     if (deudas.length === 0) {
-        html += '<p>Sin deudas activas</p>';
+        html += '<p>Sin deudas registradas</p>';
     } else {
-        html += '<h4 style="margin-bottom:12px;color:var(--turquesa-dark);">Detalle por deuda:</h4>';
-        html += deudas.map(function(d, idx) {
-            var hoy = new Date(); hoy.setHours(0,0,0,0);
-            var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
-            var vencida = venc && venc <= hoy;
-            return '<div class="deuda-mini" style="border-left:3px solid ' + (vencida ? 'var(--rojo)' : 'var(--turquesa)') + ';">' +
-                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">' +
-                '<b>Deuda #' + (idx + 1) + '</b>' +
-                '<span style="font-size:12px;color:' + (vencida ? 'var(--rojo)' : 'var(--gris)') + ';">' + (vencida ? '⚠️ Vencida' : 'Activa') + '</span></div>' +
-                '<div>Fecha: ' + formatDate(d.fecha) + ' | Cuotas: ' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + '</div>' +
-                '<div>Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
-                '<div style="font-size:18px;font-weight:800;color:var(--turquesa-dark);margin-top:8px;">' + formatMoney(d.saldoPendiente) + '</div>' +
-                '<button class="btn" style="margin-top:10px;font-size:13px;padding:10px;" onclick="verDetalleDeuda('' + escapeHtml(d.id) + '')">Ver detalle / Pagar</button></div>';
+        var totalAdeudado = deudas.reduce(function(s, d) { return s + (d.saldoPendiente || 0); }, 0);
+        html += '<p><b>Total adeudado:</b> ' + formatMoney(totalAdeudado) + '</p>';
+        html += deudas.map(function(d) {
+            return '<div class="deuda-mini">' +
+                '<div><b>' + formatDate(d.fecha) + '</b> ' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + ' cuotas | Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
+                '<div class="deuda-mini-total">' + formatMoney(d.saldoPendiente) + '</div></div>';
         }).join('');
     }
-
     var detalleContent = document.getElementById('detalle-content');
     if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
 }
@@ -1015,63 +1044,13 @@ function renderDeudas() {
     var container = document.getElementById('deudas-lista');
     if (!container) return;
     if (deudas.length === 0) { container.innerHTML = '<div class="empty">No hay deudas activas</div>'; return; }
-
-    var deudasPorCliente = {};
-    for (var i = 0; i < deudas.length; i++) {
-        var d = deudas[i];
-        if (!deudasPorCliente[d.clienteId]) {
-            deudasPorCliente[d.clienteId] = {
-                clienteId: d.clienteId,
-                clienteNombre: d.clienteNombre,
-                deudas: [],
-                totalPendiente: 0,
-                totalCuotas: 0,
-                cuotasPagadas: 0,
-                proxVencimiento: null,
-                vencida: false
-            };
-        }
-        deudasPorCliente[d.clienteId].deudas.push(d);
-        deudasPorCliente[d.clienteId].totalPendiente += (d.saldoPendiente || 0);
-        deudasPorCliente[d.clienteId].totalCuotas += d.numCuotasTotal;
-        deudasPorCliente[d.clienteId].cuotasPagadas += (d.cuotasPagadas || 0);
-        if (d.proxVencimiento) {
-            var venc = new Date(d.proxVencimiento);
-            var actual = deudasPorCliente[d.clienteId].proxVencimiento ? new Date(deudasPorCliente[d.clienteId].proxVencimiento) : null;
-            if (!actual || venc < actual) {
-                deudasPorCliente[d.clienteId].proxVencimiento = d.proxVencimiento;
-            }
-        }
-    }
-
-    var hoy = new Date(); hoy.setHours(0,0,0,0);
-    var clientesArray = [];
-    for (var cid in deudasPorCliente) {
-        var dc = deudasPorCliente[cid];
-        if (dc.proxVencimiento) {
-            var venc = new Date(dc.proxVencimiento); venc.setHours(0,0,0,0);
-            dc.vencida = venc <= hoy;
-        }
-        clientesArray.push(dc);
-    }
-
-    clientesArray.sort(function(a, b) {
-        if (a.vencida && !b.vencida) return -1;
-        if (!a.vencida && b.vencida) return 1;
-        var da = a.proxVencimiento ? new Date(a.proxVencimiento) : new Date('2099-01-01');
-        var db = b.proxVencimiento ? new Date(b.proxVencimiento) : new Date('2099-01-01');
-        return da - db;
-    });
-
-    container.innerHTML = clientesArray.map(function(dc) {
-        var numDeudas = dc.deudas.length;
-        return '<div class="deuda-item ' + (dc.vencida ? 'vencida' : '') + '" data-action="ver-cliente-deudas" data-id="' + escapeHtml(dc.clienteId) + '">' +
-            '<div class="deuda-info"><b>' + escapeHtml(dc.clienteNombre) + '</b>' +
-            ' | Deudas: ' + numDeudas +
-            ' | Total pendiente: ' + formatMoney(dc.totalPendiente) +
-            ' | Cuotas: ' + dc.cuotasPagadas + '/' + dc.totalCuotas +
-            ' | Prox venc: ' + formatDate(dc.proxVencimiento) + '</div>' +
-            '<div class="cliente-arrow">›</div></div>';
+    container.innerHTML = deudas.map(function(d) {
+        var hoy = new Date(); hoy.setHours(0,0,0,0);
+        var venc = d.proxVencimiento ? new Date(d.proxVencimiento) : null;
+        var vencida = venc && venc <= hoy;
+        return '<div class="deuda-item ' + (vencida ? 'vencida' : '') + '" data-action="ver-deuda" data-id="' + escapeHtml(d.id) + '">' +
+            '<div class="deuda-info"><b>' + escapeHtml(d.clienteNombre) + '</b> Total: ' + formatMoney(d.total) + ' | Pendiente: ' + formatMoney(d.saldoPendiente) + ' | Prox venc: ' + formatDate(d.proxVencimiento) + '</div>' +
+            '<div class="deuda-cuotas">' + (d.cuotasPagadas || 0) + '/' + d.numCuotasTotal + '</div></div>';
     }).join('');
 }
 
@@ -1087,6 +1066,7 @@ function renderHistorialDeudas() {
     }).join('');
 }
 
+// FIX #12: switchDeudaTab usa data-tab
 function switchDeudaTab(tab) {
     var activasContent = document.getElementById('deudas-activas-content');
     var historialContent = document.getElementById('deudas-historial-content');
@@ -1199,205 +1179,20 @@ function registrarPagoDeuda() {
 }
 
 // ============================================================
-// CATALOGO - NUEVO: Notas olfativas, modal interactivo
+// CATALOGO
 // ============================================================
-var catalogoPaginaActual = 0;
-var catalogoPaginas = [];
-var catalogoItemsPorPagina = 10;
-
-var catSlideStartX = 0;
-var catSlideCurrentX = 0;
-var catSlideDelta = 0;
-var catSlideIsDragging = false;
-var catSlideWrapper = null;
-
 function renderCatalogo() {
     var productos = getProductos().filter(function(p) { return p.stock > 0; });
-    var wrapper = document.getElementById('catalogo-pages-wrapper');
-    var pageInfo = document.getElementById('cat-page-info');
-    if (!wrapper) return;
-    catSlideWrapper = wrapper;
-
-    if (productos.length === 0) {
-        wrapper.innerHTML = '<div class="product-grid catalogo-page"><div class="empty" style="grid-column:1/-1;"><div style="font-size:48px;margin-bottom:16px;">🌸</div><div style="font-size:16px;font-weight:600;color:var(--negro);">Próximamente nuevas fragancias</div><div style="font-size:13px;color:var(--gris);margin-top:8px;">Nuestro catálogo se actualiza constantemente</div></div></div>';
-        if (pageInfo) pageInfo.textContent = '0 / 0';
-        catalogoPaginas = []; catalogoPaginaActual = 0;
-        return;
-    }
-
-    catalogoPaginas = [];
-    for (var i = 0; i < productos.length; i += catalogoItemsPorPagina) {
-        catalogoPaginas.push(productos.slice(i, i + catalogoItemsPorPagina));
-    }
-
-    var html = '';
-    for (var p = 0; p < catalogoPaginas.length; p++) {
-        html += '<div class="product-grid catalogo-page" data-page="' + p + '">' +
-            catalogoPaginas[p].map(function(prod) {
-                var notasData = getNotasProducto(prod);
-                var notasTexto = notasData.notas;
-                var fotoHtml = prod.foto ? '<img src="' + escapeHtml(prod.foto) + '" class="cat-foto">' : 
-                    '<div class="cat-foto-placeholder"><span class="cat-iniciales">' + getInicialesNombre(prod.nombre) + '</span></div>';
-                return '<div class="catalogo-card" data-action="ver-catalogo-producto" data-id="' + escapeHtml(prod.id) + '">' + fotoHtml +
-                    '<div class="cat-nombre">' + escapeHtml(prod.nombre) + '</div>' +
-                    '<div class="cat-precio">' + formatMoney(prod.precio) + '</div>' +
-                    '<div class="cat-notas">' + escapeHtml(notasTexto) + '</div></div>';
-            }).join('') + '</div>';
-    }
-    wrapper.innerHTML = html;
-
-    catalogoPaginaActual = 0;
-    catalogoUpdateSlide(false);
-    catalogoSetupSlide();
-}
-
-function catalogoUpdateSlide(animate) {
-    if (!catSlideWrapper) return;
-    var translate = -(catalogoPaginaActual * 100);
-    catSlideWrapper.style.transition = animate ? 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
-    catSlideWrapper.style.transform = 'translateX(' + translate + '%)';
-
-    var pageInfo = document.getElementById('cat-page-info');
-    var prevBtn = document.getElementById('cat-prev');
-    var nextBtn = document.getElementById('cat-next');
-    if (pageInfo) pageInfo.textContent = catalogoPaginas.length > 0 ? (catalogoPaginaActual + 1) + ' / ' + catalogoPaginas.length : '0 / 0';
-    if (prevBtn) prevBtn.style.opacity = catalogoPaginaActual === 0 ? '0.3' : '1';
-    if (nextBtn) nextBtn.style.opacity = catalogoPaginas.length === 0 || catalogoPaginaActual >= catalogoPaginas.length - 1 ? '0.3' : '1';
-}
-
-function catalogoNext() {
-    if (catalogoPaginaActual < catalogoPaginas.length - 1) {
-        catalogoPaginaActual++;
-        catalogoUpdateSlide(true);
-    }
-}
-
-function catalogoPrev() {
-    if (catalogoPaginaActual > 0) {
-        catalogoPaginaActual--;
-        catalogoUpdateSlide(true);
-    }
-}
-
-function catalogoSetupSlide() {
-    var container = document.getElementById('catalogo-slide-container');
+    var container = document.getElementById('catalogo-lista');
     if (!container) return;
-
-    container.ontouchstart = function(e) {
-        catSlideIsDragging = true;
-        catSlideStartX = e.touches[0].clientX;
-        catSlideCurrentX = catSlideStartX;
-        catSlideDelta = 0;
-        if (catSlideWrapper) catSlideWrapper.style.transition = 'none';
-    };
-
-    container.ontouchmove = function(e) {
-        if (!catSlideIsDragging) return;
-        catSlideCurrentX = e.touches[0].clientX;
-        catSlideDelta = catSlideCurrentX - catSlideStartX;
-        var baseTranslate = -(catalogoPaginaActual * 100);
-        var containerWidth = container.offsetWidth || window.innerWidth;
-        var percentDelta = (catSlideDelta / containerWidth) * 100;
-        if (catSlideWrapper) catSlideWrapper.style.transform = 'translateX(' + (baseTranslate + percentDelta) + '%)';
-        if (Math.abs(catSlideDelta) > 10) {
-            e.preventDefault();
-        }
-    };
-
-    container.ontouchend = function(e) {
-        if (!catSlideIsDragging) return;
-        catSlideIsDragging = false;
-        var containerWidth = container.offsetWidth || window.innerWidth;
-        var threshold = containerWidth * 0.25;
-        if (catSlideDelta < -threshold && catalogoPaginaActual < catalogoPaginas.length - 1) {
-            catalogoPaginaActual++;
-        } else if (catSlideDelta > threshold && catalogoPaginaActual > 0) {
-            catalogoPaginaActual--;
-        }
-        catalogoUpdateSlide(true);
-    };
-
-    container.ontouchcancel = function() {
-        catSlideIsDragging = false;
-        catalogoUpdateSlide(true);
-    };
-
-    container.onmousedown = function(e) {
-        catSlideIsDragging = true;
-        catSlideStartX = e.clientX;
-        catSlideCurrentX = catSlideStartX;
-        catSlideDelta = 0;
-        if (catSlideWrapper) catSlideWrapper.style.transition = 'none';
-        e.preventDefault();
-    };
-
-    container.onmousemove = function(e) {
-        if (!catSlideIsDragging) return;
-        catSlideCurrentX = e.clientX;
-        catSlideDelta = catSlideCurrentX - catSlideStartX;
-        var baseTranslate = -(catalogoPaginaActual * 100);
-        var containerWidth = container.offsetWidth || window.innerWidth;
-        var percentDelta = (catSlideDelta / containerWidth) * 100;
-        if (catSlideWrapper) catSlideWrapper.style.transform = 'translateX(' + (baseTranslate + percentDelta) + '%)';
-    };
-
-    container.onmouseup = function(e) {
-        if (!catSlideIsDragging) return;
-        catSlideIsDragging = false;
-        var containerWidth = container.offsetWidth || window.innerWidth;
-        var threshold = containerWidth * 0.25;
-        if (catSlideDelta < -threshold && catalogoPaginaActual < catalogoPaginas.length - 1) {
-            catalogoPaginaActual++;
-        } else if (catSlideDelta > threshold && catalogoPaginaActual > 0) {
-            catalogoPaginaActual--;
-        }
-        catalogoUpdateSlide(true);
-    };
-
-    container.onmouseleave = function() {
-        if (catSlideIsDragging) {
-            catSlideIsDragging = false;
-            catalogoUpdateSlide(true);
-        }
-    };
-}
-
-// ============================================================
-// MODAL CATALOGO - Detalle de producto
-// ============================================================
-function verCatalogoProducto(id) {
-    var productos = getProductos();
-    var p = null;
-    for (var i = 0; i < productos.length; i++) { if (productos[i].id === id) { p = productos[i]; break; } }
-    if (!p) { showToast('Producto no disponible'); return; }
-
-    var notasData = getNotasProducto(p);
-    var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="cat-modal-foto">' : 
-        '<div class="cat-modal-foto-placeholder"><span class="cat-modal-iniciales">' + getInicialesNombre(p.nombre) + '</span></div>';
-
-    var html = '<div class="cat-modal-content">' +
-        fotoHtml +
-        '<div class="cat-modal-nombre">' + escapeHtml(p.nombre) + '</div>' +
-        '<div class="cat-modal-precio">' + formatMoney(p.precio) + '</div>' +
-        '<div class="cat-modal-notas"><b>Notas olfativas:</b><br>' + escapeHtml(notasData.notas) + '</div>';
-
-    if (notasData.mensaje) {
-        html += '<div class="cat-modal-mensaje-especial">' + escapeHtml(notasData.mensaje) + '</div>';
-    }
-
-    html += '<div class="cat-modal-poetico">' + escapeHtml(MENSAJE_POETICO) + '</div>' +
-        '<div class="cat-modal-firma">' + escapeHtml(FIRMA_DULCES_AROMAS) + '</div>' +
-        '<button class="btn" style="margin-top:20px;" onclick="agregarAlCarroDesdeCatalogo('' + escapeHtml(p.id) + '')">🛒 Agregar a Venta</button>' +
-        '</div>';
-
-    var detalleContent = document.getElementById('detalle-content');
-    if (detalleContent) { detalleContent.innerHTML = html; showModal('modal-detalle'); }
-}
-
-function agregarAlCarroDesdeCatalogo(id) {
-    closeModal('modal-detalle');
-    agregarAlCarro(id);
-    showToast('Producto agregado al carro');
+    if (productos.length === 0) { container.innerHTML = '<div class="empty">No hay productos disponibles</div>'; return; }
+    container.innerHTML = productos.map(function(p) {
+        var fotoHtml = p.foto ? '<img src="' + escapeHtml(p.foto) + '" class="cat-foto">' : '<div class="cat-foto-placeholder">🌸</div>';
+        return '<div class="catalogo-card">' + fotoHtml +
+            '<div class="cat-nombre">' + escapeHtml(p.nombre) + '</div>' +
+            '<div class="cat-precio">' + formatMoney(p.precio) + '</div>' +
+            '<div class="cat-stock">Stock: ' + p.stock + '</div></div>';
+    }).join('');
 }
 
 // ============================================================
@@ -1405,18 +1200,12 @@ function agregarAlCarroDesdeCatalogo(id) {
 // ============================================================
 function showModal(id) {
     var modal = document.getElementById(id);
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
+    if (modal) modal.classList.add('active');
 }
 
 function closeModal(id) {
     var modal = document.getElementById(id);
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    if (modal) modal.classList.remove('active');
     if (id === 'modal-producto') { editingProductId = null; fotoProductoBase64 = null; fotoProductoEditando = null; }
     if (id === 'modal-deuda-detalle') { editingDeudaId = null; }
     if (id === 'modal-cliente') { var cn = document.getElementById('cli-nombre'); var ct = document.getElementById('cli-telefono'); if (cn) cn.value = ''; if (ct) ct.value = ''; }
@@ -1431,7 +1220,7 @@ function guardarConfig() {
 }
 
 // ============================================================
-// BACKUP
+// BACKUP - FIX #10: Validacion de schema en importacion
 // ============================================================
 function exportarExcel() {
     var data = cargarTodo();
@@ -1446,6 +1235,7 @@ function exportarExcel() {
     showToast("✅ Excel exportado");
 }
 
+// FIX #10: Validar schema antes de guardar importacion
 function validarProducto(p) {
     return p && typeof p === 'object' && p.id && p.nombre && typeof p.precio === 'number' && p.precio >= 0 && typeof p.stock === 'number' && p.stock >= 0;
 }
@@ -1546,12 +1336,6 @@ function setupEventDelegation() {
                         return;
                     case 'ver-deuda':
                         if (id) { e.stopPropagation(); verDetalleDeuda(id); }
-                        return;
-                    case 'ver-cliente-deudas':
-                        if (id) { e.stopPropagation(); verDeudasCliente(id); }
-                        return;
-                    case 'ver-catalogo-producto':
-                        if (id) { e.stopPropagation(); verCatalogoProducto(id); }
                         return;
                 }
             }
