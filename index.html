@@ -19,29 +19,75 @@
   <div class="main">
     <!-- DASHBOARD -->
     <div id="mod-dashboard" class="module active">
+      <!-- RESUMEN FINANCIERO -->
       <div class="card">
-        <h2>Resumen del Dia</h2>
+        <h2>💰 Resumen Financiero</h2>
         <div class="stats-grid">
           <div class="stat-card" onclick="navigateTo('ventas')">
-            <div class="stat-value" id="dash-ventas">$0</div>
-            <div class="stat-label">Ventas Hoy</div>
+            <div class="stat-value" id="dash-ventas-hoy">$0</div>
+            <div class="stat-label">Hoy</div>
           </div>
-          <div class="stat-card" onclick="navigateTo('inventario')">
-            <div class="stat-value warning" id="dash-stock">0</div>
-            <div class="stat-label">Stock Bajo</div>
+          <div class="stat-card" onclick="navigateTo('ventas')">
+            <div class="stat-value" id="dash-ventas-semana">$0</div>
+            <div class="stat-label">Esta Semana</div>
           </div>
-          <div class="stat-card" onclick="navigateTo('deudas')">
-            <div class="stat-value warning" id="dash-deudas">0</div>
-            <div class="stat-label">Cuotas Vencidas</div>
+          <div class="stat-card" onclick="navigateTo('ventas')">
+            <div class="stat-value" id="dash-ventas-mes">$0</div>
+            <div class="stat-label">Este Mes</div>
+          </div>
+          <div class="stat-card" onclick="navigateTo('ventas')">
+            <div class="stat-value" id="dash-ventas-total">$0</div>
+            <div class="stat-label">Total Historico</div>
           </div>
         </div>
       </div>
+
+      <!-- ALERTAS -->
       <div class="card">
-        <h3>Acciones Rapidas</h3>
-        <button class="btn" onclick="navigateTo('venta')">Nueva Venta</button>
-        <button class="btn btn-secondary" onclick="navigateTo('productos')">Ver Productos</button>
-        <button class="btn btn-secondary" onclick="navigateTo('clientes')">Ver Clientes</button>
-        <button class="btn btn-secondary" onclick="navigateTo('deudas')">Ver Deudas</button>
+        <h2>🚨 Alertas</h2>
+        <div class="stats-grid">
+          <div class="stat-card" onclick="navigateTo('inventario')">
+            <div class="stat-value warning" id="dash-stock-bajo">0</div>
+            <div class="stat-label">Stock Bajo</div>
+          </div>
+          <div class="stat-card" onclick="navigateTo('deudas')">
+            <div class="stat-value warning" id="dash-deudas-vencidas">0</div>
+            <div class="stat-label">Cuotas Vencidas</div>
+          </div>
+          <div class="stat-card" onclick="navigateTo('deudas')">
+            <div class="stat-value warning" id="dash-deudas-total">$0</div>
+            <div class="stat-label">Deuda Total</div>
+          </div>
+          <div class="stat-card" onclick="navigateTo('clientes')">
+            <div class="stat-value" id="dash-clientes-total">0</div>
+            <div class="stat-label">Clientes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOP PRODUCTOS -->
+      <div class="card">
+        <h2>🔥 Top 5 Productos Vendidos</h2>
+        <div id="dash-top-productos"></div>
+      </div>
+
+      <!-- ULTIMAS VENTAS -->
+      <div class="card">
+        <h2>🛒 Ultimas 5 Ventas</h2>
+        <div id="dash-ultimas-ventas"></div>
+      </div>
+
+      <!-- ACCIONES RAPIDAS -->
+      <div class="card">
+        <h3>⚡ Acciones Rapidas</h3>
+        <div class="quick-actions">
+          <button class="btn quick-btn" onclick="navigateTo('venta')">🛍️ Nueva Venta</button>
+          <button class="btn btn-secondary quick-btn" onclick="navigateTo('productos')">📦 Productos</button>
+          <button class="btn btn-secondary quick-btn" onclick="navigateTo('clientes')">👥 Clientes</button>
+          <button class="btn btn-secondary quick-btn" onclick="navigateTo('deudas')">💳 Deudas</button>
+          <button class="btn btn-secondary quick-btn" onclick="navigateTo('catalogo')">📖 Catalogo</button>
+          <button class="btn btn-secondary quick-btn" onclick="navigateTo('config')">⚙️ Config</button>
+        </div>
       </div>
     </div>
 
@@ -115,16 +161,7 @@
 
     <!-- CATALOGO -->
     <div id="mod-catalogo" class="module">
-      <div class="catalogo-paginacion">
-        <button class="cat-page-btn" id="cat-prev" onclick="catalogoPrev()">&#9664;</button>
-        <span class="cat-page-info" id="cat-page-info">1 / 1</span>
-        <button class="cat-page-btn" id="cat-next" onclick="catalogoNext()">&#9654;</button>
-      </div>
-      <div class="catalogo-slide-container" id="catalogo-slide-container">
-        <div class="catalogo-pages-wrapper" id="catalogo-pages-wrapper">
-          <div class="product-grid catalogo-page" id="catalogo-lista"></div>
-        </div>
-      </div>
+      <div class="product-grid" id="catalogo-lista"></div>
     </div>
 
     <!-- CONFIG -->

@@ -191,17 +191,8 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .venc-item:not(.pagada):not(.vencida) { background: var(--gris-claro); border-left: 3px solid var(--gris); }
 
 /* ============================================================
-   CATALOGO - Slide pagination
+   CATALOGO
    ============================================================ */
-.catalogo-paginacion { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 16px; padding: 8px; }
-.cat-page-btn { background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,180,216,0.3); transition: all 0.2s ease; }
-.cat-page-btn:active { transform: scale(0.9); }
-.cat-page-info { font-size: 14px; font-weight: 700; color: var(--negro); min-width: 60px; text-align: center; }
-
-.catalogo-slide-container { overflow: hidden; position: relative; width: 100%; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
-.catalogo-pages-wrapper { display: flex; width: 100%; will-change: transform; }
-.catalogo-page { flex: 0 0 100%; min-width: 100%; padding: 0 4px; }
-
 .catalogo-card { background: var(--blanco-glass); border-radius: var(--radio); padding: 16px; text-align: center; box-shadow: var(--sombra); border: 1px solid var(--gris-borde); backdrop-filter: blur(4px); transition: all 0.3s ease; }
 .catalogo-card:hover { box-shadow: var(--sombra-hover); transform: translateY(-4px); }
 .cat-foto { width: 100%; height: 140px; object-fit: cover; border-radius: var(--radio-sm); margin-bottom: 12px; border: 2px solid rgba(255,182,193,0.3); box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s ease; }
@@ -271,6 +262,29 @@ input:focus, select:focus { border-color: var(--turquesa); box-shadow: 0 0 0 4px
 .toast { position: fixed; top: 24px; left: 50%; transform: translateX(-50%) translateY(-100px); background: linear-gradient(135deg, var(--negro) 0%, #2D2D44 100%); color: var(--blanco); padding: 14px 28px; border-radius: var(--radio-sm); font-size: 14px; z-index: 400; display: none; font-weight: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(8px); }
 .toast.show { display: block; animation: toastIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
 @keyframes toastIn { from { transform: translateX(-50%) translateY(-100px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+
+/* ============================================================
+   DASHBOARD SUPER
+   ============================================================ */
+.quick-actions { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.quick-btn { margin-top: 0; font-size: 14px; padding: 12px 16px; }
+
+.dash-top-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--gris-borde); }
+.dash-top-item:last-child { border-bottom: none; }
+.dash-top-rank { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); color: var(--blanco); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; margin-right: 14px; flex-shrink: 0; }
+.dash-top-info { flex: 1; }
+.dash-top-info b { font-size: 13px; color: var(--negro); display: block; margin-bottom: 6px; }
+.dash-top-info span { font-size: 12px; color: var(--gris); }
+.dash-top-bar { width: 100%; height: 8px; background: var(--gris-claro); border-radius: 4px; overflow: hidden; margin-bottom: 4px; }
+.dash-top-fill { height: 100%; background: linear-gradient(90deg, var(--turquesa) 0%, var(--azul-verdoso) 100%); border-radius: 4px; transition: width 0.5s ease; }
+
+.dash-venta-mini { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--gris-borde); cursor: pointer; transition: all 0.2s ease; }
+.dash-venta-mini:last-child { border-bottom: none; }
+.dash-venta-mini:active { transform: scale(0.98); }
+.dash-venta-info { flex: 1; }
+.dash-venta-info b { font-size: 14px; color: var(--negro); display: block; margin-bottom: 3px; }
+.dash-venta-info span { font-size: 12px; color: var(--gris); }
+.dash-venta-total { font-size: 16px; font-weight: 800; color: var(--turquesa-dark); margin-left: 12px; }
 
 /* ============================================================
    EMPTY STATE
