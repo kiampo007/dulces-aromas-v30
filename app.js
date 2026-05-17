@@ -47,9 +47,8 @@ function showToast(msg) {
 }
 
 // FIX #1: Escape HTML completo con backticks y slash
-
 // ============================================================
-// NOTAS OLFATIVAS - Solo para catálogo
+// NOTAS OLFATIVAS - Catálogo
 // ============================================================
 var NOTAS_CATEGORIA = {
     'caballero': 'Amaderado, aromático, cítrico fresco',
@@ -1465,7 +1464,6 @@ function importarBackup(input) {
 // ============================================================
 // EVENT DELEGATION
 // ============================================================
-
 // ============================================================
 // CATALOGO MODAL - Detalle de producto
 // ============================================================
