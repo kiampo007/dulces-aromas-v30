@@ -13,16 +13,13 @@
 <body>
 <div id="app" class="app">
 
-<!-- HEADER -->
 <header class="header">
 <h1>🌸 Dulces Aromas</h1>
 <div id="header-date" class="header-date"></div>
 </header>
 
-<!-- MAIN -->
 <main class="main">
 
-<!-- DASHBOARD -->
 <div id="mod-dashboard" class="module active">
 <div class="card">
 <h2>Resumen del Dia</h2>
@@ -57,7 +54,6 @@
 </div>
 </div>
 
-<!-- VENTA -->
 <div id="mod-venta" class="module">
 <div class="search-box">
 <input type="text" id="v-buscar" placeholder="Buscar producto..." oninput="buscarProducto()">
@@ -71,7 +67,6 @@
 <div id="v-productos" class="product-grid"></div>
 </div>
 
-<!-- PRODUCTOS -->
 <div id="mod-productos" class="module">
 <div class="search-box">
 <input type="text" id="p-buscar" placeholder="Buscar producto..." oninput="filtrarProductos()">
@@ -80,7 +75,6 @@
 <div id="p-lista"></div>
 </div>
 
-<!-- INVENTARIO -->
 <div id="mod-inventario" class="module">
 <div class="tabs">
 <button class="tab active" data-tab="stock" onclick="switchInvTab('stock')">Stock</button>
@@ -97,18 +91,15 @@
 </div>
 </div>
 
-<!-- VENTAS -->
 <div id="mod-ventas" class="module">
 <div id="ventas-lista"></div>
 </div>
 
-<!-- CLIENTES -->
 <div id="mod-clientes" class="module">
 <button class="btn" onclick="showModal('modal-cliente')">➕ Nuevo Cliente</button>
 <div id="clientes-lista"></div>
 </div>
 
-<!-- DEUDAS -->
 <div id="mod-deudas" class="module">
 <div class="tabs">
 <button class="tab active" data-tab="activas" onclick="switchDeudaTab('activas')">Activas</button>
@@ -122,7 +113,6 @@
 </div>
 </div>
 
-<!-- CATALOGO -->
 <div id="mod-catalogo" class="module">
 <div class="catalogo-paginacion">
 <button class="cat-page-btn" onclick="catAnterior()">‹</button>
@@ -136,12 +126,10 @@
 
 </main>
 
-<!-- CARRITO FAB -->
 <div id="cart-fab" class="cart-fab" onclick="toggleCart()" style="display:none">
 🛒<span id="cart-count">0</span>
 </div>
 
-<!-- CARRITO PANEL -->
 <div id="cart-panel" class="cart-panel">
 <div class="cart-header">
 <h3>Carro de Compra</h3>
@@ -157,7 +145,6 @@
 <button class="btn btn-secondary" onclick="pagar('credito')">📝 Fiado</button>
 </div>
 
-<!-- MODAL: CLIENTE -->
 <div id="modal-cliente" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -170,7 +157,6 @@
 </div>
 </div>
 
-<!-- MODAL: PRODUCTO -->
 <div id="modal-producto" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -195,7 +181,6 @@
 </div>
 </div>
 
-<!-- MODAL: CREDITO -->
 <div id="modal-credito" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -213,7 +198,6 @@
 </div>
 </div>
 
-<!-- MODAL: DETALLE -->
 <div id="modal-detalle" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -224,7 +208,6 @@
 </div>
 </div>
 
-<!-- MODAL: DEUDA DETALLE -->
 <div id="modal-deuda-detalle" class="modal">
 <div class="modal-content">
 <div class="modal-header">
@@ -251,7 +234,6 @@
 </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast" class="toast"></div>
 
 </div>

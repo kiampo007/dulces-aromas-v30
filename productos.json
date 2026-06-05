@@ -1,12 +1,1 @@
-[
-{"id":"p1","nombre":"Lancôme Trésor","marca":"Lancôme","precio":66500,"stock":5,"categoria":"dama","foto":null},
-{"id":"p2","nombre":"Chanel N°5","marca":"Chanel","precio":85000,"stock":3,"categoria":"dama","foto":null},
-{"id":"p3","nombre":"Dior Sauvage","marca":"Dior","precio":72000,"stock":8,"categoria":"caballero","foto":null},
-{"id":"p4","nombre":"Paco Rabanne 1 Million","marca":"Paco Rabanne","precio":58000,"stock":6,"categoria":"caballero","foto":null},
-{"id":"p5","nombre":"Carolina Herrera Good Girl","marca":"Carolina Herrera","precio":62000,"stock":4,"categoria":"dama","foto":null},
-{"id":"p6","nombre":"Versace Eros","marca":"Versace","precio":55000,"stock":7,"categoria":"caballero","foto":null},
-{"id":"p7","nombre":"Burberry Her","marca":"Burberry","precio":48000,"stock":5,"categoria":"dama","foto":null},
-{"id":"p8","nombre":"Calvin Klein CK One","marca":"Calvin Klein","precio":35000,"stock":10,"categoria":"caballero","foto":null},
-{"id":"p9","nombre":"Giorgio Armani Acqua di Gio","marca":"Giorgio Armani","precio":68000,"stock":4,"categoria":"caballero","foto":null},
-{"id":"p10","nombre":"Yves Saint Laurent Black Opium","marca":"Yves Saint Laurent","precio":75000,"stock":3,"categoria":"dama","foto":null}
-]
+[{"id":"p1","nombre":"Lancôme Trésor","marca":"Lancôme","precio":66500,"stock":5,"categoria":"dama","foto":null},{"id":"p2","nombre":"Chanel N°5","marca":"Chanel","precio":85000,"stock":3,"categoria":"dama","foto":null},{"id":"p3","nombre":"Dior Sauvage","marca":"Dior","precio":72000,"stock":8,"categoria":"caballero","foto":null},{"id":"p4","nombre":"Paco Rabanne 1 Million","marca":"Paco Rabanne","precio":58000,"stock":6,"categoria":"caballero","foto":null},{"id":"p5","nombre":"Carolina Herrera Good Girl","marca":"Carolina Herrera","precio":62000,"stock":4,"categoria":"dama","foto":null},{"id":"p6","nombre":"Versace Eros","marca":"Versace","precio":55000,"stock":7,"categoria":"caballero","foto":null},{"id":"p7","nombre":"Burberry Her","marca":"Burberry","precio":48000,"stock":5,"categoria":"dama","foto":null},{"id":"p8","nombre":"Calvin Klein CK One","marca":"Calvin Klein","precio":35000,"stock":10,"categoria":"caballero","foto":null},{"id":"p9","nombre":"Giorgio Armani Acqua di Gio","marca":"Giorgio Armani","precio":68000,"stock":4,"categoria":"caballero","foto":null},{"id":"p10","nombre":"Yves Saint Laurent Black Opium","marca":"Yves Saint Laurent","precio":75000,"stock":3,"categoria":"dama","foto":null}]
